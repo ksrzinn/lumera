@@ -16,6 +16,7 @@ const user = usePage().props.auth.user;
 
         <div class="space-y-3">
             <Card icon="calendar" href="/lembretes">Seu próximo exame</Card>
+            <Card icon="heart" href="/questionario">Questionário de saúde</Card>
             <Card icon="info" href="/informacoes">Informações e prevenção</Card>
             <Alert>A prevenção salva vidas!</Alert>
         </div>

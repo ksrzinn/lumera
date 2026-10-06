@@ -7,6 +7,7 @@ use Database\Factories\UserFactory;
 use Illuminate\Database\Eloquent\Attributes\Fillable;
 use Illuminate\Database\Eloquent\Attributes\Hidden;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 
@@ -22,6 +23,11 @@ class User extends Authenticatable
     public const ROLE_PROFESSIONAL = 'professional';
 
     public const ROLES = [self::ROLE_PATIENT, self::ROLE_PROFESSIONAL];
+
+    public function healthQuestionnaires(): HasMany
+    {
+        return $this->hasMany(HealthQuestionnaire::class);
+    }
 
     public function homeRoute(): string
     {

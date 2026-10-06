@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\InfoController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\QuestionnaireController;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
@@ -20,6 +21,11 @@ Route::middleware('auth')->group(function () {
 
     Route::middleware('role:patient')->group(function () {
         Route::get('/paciente', fn () => Inertia::render('Patient/Dashboard'))->name('patient.dashboard');
+
+        Route::get('/questionario', [QuestionnaireController::class, 'create'])->name('questionnaires.create');
+        Route::post('/questionario', [QuestionnaireController::class, 'store'])->name('questionnaires.store');
+        Route::get('/questionario/historico', [QuestionnaireController::class, 'index'])->name('questionnaires.index');
+        Route::get('/questionario/{id}', [QuestionnaireController::class, 'show'])->whereNumber('id')->name('questionnaires.show');
     });
 
     Route::middleware('role:professional')->group(function () {

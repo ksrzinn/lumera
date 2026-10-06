@@ -45,13 +45,13 @@ Legenda: `[ ]` pendente, `[x]` concluído.
 - [x] Menu de navegação entre as páginas
 
 ## Etapa 4. Questionário de saúde
-- [ ] Migration e model `health_questionnaires`
-- [ ] Form Request com validação (idade, preventivo, data do último, camisinha, contraceptivo, vacina HPV)
-- [ ] Formulário do questionário igual à tela de referência
-- [ ] Classe de regras que devolve `baixo_risco`, `atencao` ou `alta_prioridade`
-- [ ] Testes automatizados da classe de regras (todas as faixas e casos de borda)
-- [ ] Tela de resultado com aviso de que é orientação educativa, não diagnóstico
-- [ ] Histórico dos questionários anteriores do paciente
+- [x] Migration e model `health_questionnaires`
+- [x] Form Request com validação (idade, preventivo, data do último, camisinha, contraceptivo, vacina HPV)
+- [x] Formulário do questionário igual à tela de referência
+- [x] Classe de regras que devolve `baixo_risco`, `atencao` ou `alta_prioridade`
+- [x] Testes automatizados da classe de regras (todas as faixas e casos de borda)
+- [x] Tela de resultado com aviso de que é orientação educativa, não diagnóstico
+- [x] Histórico dos questionários anteriores do paciente
 
 ## Etapa 5. Ciclo menstrual
 - [ ] Migration e model `cycle_entries`
