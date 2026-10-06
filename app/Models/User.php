@@ -29,6 +29,11 @@ class User extends Authenticatable
         return $this->hasMany(HealthQuestionnaire::class);
     }
 
+    public function cycleEntries(): HasMany
+    {
+        return $this->hasMany(CycleEntry::class);
+    }
+
     public function homeRoute(): string
     {
         return $this->role === self::ROLE_PROFESSIONAL

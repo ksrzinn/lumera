@@ -2,6 +2,8 @@
 
 return [
     'accepted' => 'É necessário aceitar o :attribute.',
+    'after_or_equal' => 'O campo :attribute deve ser uma data igual ou posterior a :date.',
+    'array' => 'O campo :attribute está em formato inválido.',
     'before_or_equal' => 'O campo :attribute deve ser uma data igual ou anterior a :date.',
     'before' => 'O campo :attribute deve ser uma data anterior a :date.',
     'confirmed' => 'A confirmação de :attribute não confere.',
@@ -32,6 +34,11 @@ return [
         'data_nascimento' => 'data de nascimento',
         'role' => 'perfil',
         'consent' => 'termo de consentimento',
+        'data_inicio' => 'data de início',
+        'data_fim' => 'data de fim',
+        'fluxo' => 'fluxo',
+        'sintomas' => 'sintomas',
+        'notas' => 'notas',
         'idade' => 'idade',
         'fez_preventivo' => 'resposta sobre o exame preventivo',
         'data_ultimo_preventivo' => 'data do último preventivo',

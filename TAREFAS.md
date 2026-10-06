@@ -54,10 +54,10 @@ Legenda: `[ ]` pendente, `[x]` concluído.
 - [x] Histórico dos questionários anteriores do paciente
 
 ## Etapa 5. Ciclo menstrual
-- [ ] Migration e model `cycle_entries`
-- [ ] CRUD de registros (início, fim, fluxo, sintomas, notas) com Form Request
-- [ ] Visualização em calendário ou lista, conforme a tela de referência
-- [ ] Garantir que cada paciente só acesse os próprios registros
+- [x] Migration e model `cycle_entries`
+- [x] CRUD de registros (início, fim, fluxo, sintomas, notas) com Form Request
+- [x] Visualização em calendário ou lista, conforme a tela de referência
+- [x] Garantir que cada paciente só acesse os próprios registros
 
 ## Etapa 6. Lembretes e agendamentos
 - [ ] Migration e model `reminders`
