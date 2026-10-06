@@ -8,14 +8,17 @@ defineProps({
     back: { type: String, default: null },
 });
 
-const tabs = [
-    { label: 'Início', icon: 'home', href: '/dashboard' },
-    { label: 'Exames', icon: 'exams', href: '/exames' },
-    { label: 'Chat', icon: 'chat', href: '/mensagens' },
-    { label: 'Perfil', icon: 'user', href: '/perfil' },
-];
-
 const page = usePage();
+
+const isProfessional = page.props.auth.user.role === 'professional';
+const homeHref = isProfessional ? '/profissional' : '/paciente';
+
+const tabs = [
+    { label: 'Início', icon: 'home', href: homeHref },
+    ...(isProfessional ? [] : [{ label: 'Exames', icon: 'exams', href: '/exames' }]),
+    { label: 'Chat', icon: 'chat', href: '/mensagens' },
+    { label: 'Perfil', icon: 'user', href: '/profile' },
+];
 const isActive = (href) => page.url === href || page.url.startsWith(href + '/');
 </script>
 
@@ -31,7 +34,7 @@ const isActive = (href) => page.url === href || page.url.startsWith(href + '/');
                 >
                     <Icon name="arrow-left" class="h-5 w-5" />
                 </Link>
-                <Link v-else href="/dashboard" aria-label="Cuidar">
+                <Link v-else :href="homeHref" aria-label="Cuidar">
                     <BrandLogo size="sm" />
                 </Link>
 
@@ -77,7 +80,7 @@ const isActive = (href) => page.url === href || page.url.startsWith(href + '/');
             class="fixed inset-x-0 bottom-0 z-10 border-t border-rosa-200 bg-white/95 md:hidden"
             aria-label="Menu principal"
         >
-            <ul class="mx-auto grid max-w-2xl grid-cols-4">
+            <ul :class="isProfessional ? 'grid-cols-3' : 'grid-cols-4'" class="mx-auto grid max-w-2xl">
                 <li v-for="tab in tabs" :key="tab.href">
                     <Link
                         :href="tab.href"

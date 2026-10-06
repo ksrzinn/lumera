@@ -27,12 +27,12 @@ Legenda: `[ ]` pendente, `[x]` concluído.
 - [x] Criar componentes reutilizáveis (botão, card, input, alerta) no padrão visual das telas
 
 ## Etapa 2. Auth e roles
-- [ ] Migration: adicionar `role` (`patient` ou `professional`) e `data_nascimento` em `users`
-- [ ] Tela de cadastro com escolha de perfil e checkbox de consentimento (LGPD)
-- [ ] Remover rotas e telas de recuperação de senha e verificação de e-mail
-- [ ] Criar middleware `role` e registrar nas rotas
-- [ ] Redirecionar para o dashboard correto conforme o perfil após o login
-- [ ] Teste automatizado do middleware `role`
+- [x] Migration: adicionar `role` (`patient` ou `professional`) e `data_nascimento` em `users`
+- [x] Tela de cadastro com escolha de perfil e checkbox de consentimento (LGPD)
+- [x] Remover rotas e telas de recuperação de senha e verificação de e-mail
+- [x] Criar middleware `role` e registrar nas rotas
+- [x] Redirecionar para o dashboard correto conforme o perfil após o login
+- [x] Teste automatizado do middleware `role`
 
 ## Etapa 3. Páginas de informação (públicas)
 - [ ] O que é o câncer de colo de útero
