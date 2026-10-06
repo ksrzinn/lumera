@@ -1,7 +1,10 @@
 <?php
 
 use App\Http\Controllers\CycleEntryController;
+use App\Http\Controllers\ExamController;
+use App\Http\Controllers\HistoryController;
 use App\Http\Controllers\InfoController;
+use App\Http\Controllers\PatientDashboardController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\QuestionnaireController;
 use App\Http\Controllers\ReminderController;
@@ -22,7 +25,9 @@ Route::middleware('auth')->group(function () {
     Route::get('/dashboard', fn () => redirect(auth()->user()->homeRoute()))->name('dashboard');
 
     Route::middleware('role:patient')->group(function () {
-        Route::get('/paciente', fn () => Inertia::render('Patient/Dashboard'))->name('patient.dashboard');
+        Route::get('/paciente', PatientDashboardController::class)->name('patient.dashboard');
+        Route::get('/exames', ExamController::class)->name('exams.index');
+        Route::get('/historico', HistoryController::class)->name('history.index');
 
         Route::get('/ciclo', [CycleEntryController::class, 'index'])->name('cycle.index');
         Route::get('/ciclo/novo', [CycleEntryController::class, 'create'])->name('cycle.create');

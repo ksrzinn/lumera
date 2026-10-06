@@ -67,11 +67,11 @@ Legenda: `[ ]` pendente, `[x]` concluído.
 - [x] Garantir que cada paciente só acesse os próprios lembretes
 
 ## Etapa 7. Dashboard e perfil do paciente
-- [ ] Card do próximo lembrete
-- [ ] Card do último ciclo registrado
-- [ ] Card da situação do preventivo (a partir do último questionário)
-- [ ] Tela de perfil: editar dados pessoais
-- [ ] Histórico consolidado (questionários e ciclos)
+- [x] Card do próximo lembrete
+- [x] Card do último ciclo registrado
+- [x] Card da situação do preventivo (a partir do último questionário)
+- [x] Tela de perfil: editar dados pessoais
+- [x] Histórico consolidado (questionários e ciclos)
 
 ## Etapa 8. Fale com um médico
 - [ ] Migrations e models `conversations` (patient_id, professional_id, assunto, status) e `messages` (conversation_id, sender_id, corpo)

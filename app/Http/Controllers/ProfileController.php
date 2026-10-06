@@ -18,7 +18,7 @@ class ProfileController extends Controller
     public function edit(Request $request): Response
     {
         return Inertia::render('Profile/Edit', [
-            'status' => session('status'),
+            'dataNascimento' => $request->user()->data_nascimento?->toDateString(),
         ]);
     }
 
