@@ -34,6 +34,11 @@ class User extends Authenticatable
         return $this->hasMany(CycleEntry::class);
     }
 
+    public function reminders(): HasMany
+    {
+        return $this->hasMany(Reminder::class);
+    }
+
     public function homeRoute(): string
     {
         return $this->role === self::ROLE_PROFESSIONAL

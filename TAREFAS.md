@@ -60,11 +60,11 @@ Legenda: `[ ]` pendente, `[x]` concluído.
 - [x] Garantir que cada paciente só acesse os próprios registros
 
 ## Etapa 6. Lembretes e agendamentos
-- [ ] Migration e model `reminders`
-- [ ] CRUD (título, data/hora, tipo: preventivo, consulta ou outro)
-- [ ] Marcar como concluído
-- [ ] Destaque visual para lembretes vencidos e próximos
-- [ ] Garantir que cada paciente só acesse os próprios lembretes
+- [x] Migration e model `reminders`
+- [x] CRUD (título, data/hora, tipo: preventivo, consulta ou outro)
+- [x] Marcar como concluído
+- [x] Destaque visual para lembretes vencidos e próximos
+- [x] Garantir que cada paciente só acesse os próprios lembretes
 
 ## Etapa 7. Dashboard e perfil do paciente
 - [ ] Card do próximo lembrete

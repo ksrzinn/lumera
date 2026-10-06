@@ -4,6 +4,7 @@ use App\Http\Controllers\CycleEntryController;
 use App\Http\Controllers\InfoController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\QuestionnaireController;
+use App\Http\Controllers\ReminderController;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
@@ -29,6 +30,14 @@ Route::middleware('auth')->group(function () {
         Route::get('/ciclo/{id}/editar', [CycleEntryController::class, 'edit'])->whereNumber('id')->name('cycle.edit');
         Route::put('/ciclo/{id}', [CycleEntryController::class, 'update'])->whereNumber('id')->name('cycle.update');
         Route::delete('/ciclo/{id}', [CycleEntryController::class, 'destroy'])->whereNumber('id')->name('cycle.destroy');
+
+        Route::get('/lembretes', [ReminderController::class, 'index'])->name('reminders.index');
+        Route::get('/lembretes/novo', [ReminderController::class, 'create'])->name('reminders.create');
+        Route::post('/lembretes', [ReminderController::class, 'store'])->name('reminders.store');
+        Route::get('/lembretes/{id}/editar', [ReminderController::class, 'edit'])->whereNumber('id')->name('reminders.edit');
+        Route::put('/lembretes/{id}', [ReminderController::class, 'update'])->whereNumber('id')->name('reminders.update');
+        Route::patch('/lembretes/{id}/concluir', [ReminderController::class, 'toggle'])->whereNumber('id')->name('reminders.toggle');
+        Route::delete('/lembretes/{id}', [ReminderController::class, 'destroy'])->whereNumber('id')->name('reminders.destroy');
 
         Route::get('/questionario', [QuestionnaireController::class, 'create'])->name('questionnaires.create');
         Route::post('/questionario', [QuestionnaireController::class, 'store'])->name('questionnaires.store');
