@@ -91,6 +91,7 @@ const badge = {
             <div class="grid grid-cols-2 gap-3 pt-2">
                 <Card icon="heart" :href="route('questionnaires.create')">Questionário de saúde</Card>
                 <Card icon="info" :href="route('info.index')">Informações e prevenção</Card>
+                <Card icon="chat" :href="route('conversations.index')">Fale com um médico</Card>
             </div>
         </div>
     </AppLayout>

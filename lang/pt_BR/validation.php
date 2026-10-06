@@ -9,6 +9,7 @@ return [
     'confirmed' => 'A confirmação de :attribute não confere.',
     'current_password' => 'A senha atual está incorreta.',
     'date' => 'O campo :attribute não é uma data válida.',
+    'exists' => 'O :attribute selecionado é inválido.',
     'email' => 'O campo :attribute deve ser um e-mail válido.',
     'between' => [
         'numeric' => 'O campo :attribute deve estar entre :min e :max.',
@@ -34,6 +35,9 @@ return [
         'data_nascimento' => 'data de nascimento',
         'role' => 'perfil',
         'consent' => 'termo de consentimento',
+        'professional_id' => 'profissional',
+        'assunto' => 'assunto',
+        'corpo' => 'mensagem',
         'titulo' => 'título',
         'data_hora' => 'data e hora',
         'tipo' => 'tipo',

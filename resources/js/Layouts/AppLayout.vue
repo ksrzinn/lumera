@@ -19,9 +19,11 @@ const tabs = user
           { label: 'Início', icon: 'home', href: homeHref },
           ...(isProfessional ? [] : [{ label: 'Exames', icon: 'exams', href: '/exames' }]),
           { label: 'Chat', icon: 'chat', href: '/mensagens' },
+          ...(isProfessional ? [{ label: 'Pacientes', icon: 'users', href: '/pacientes' }] : []),
           { label: 'Perfil', icon: 'user', href: '/profile' },
       ]
     : [];
+const gridCols = { 3: 'grid-cols-3', 4: 'grid-cols-4' };
 const isActive = (href) => page.url === href || page.url.startsWith(href + '/');
 </script>
 
@@ -92,7 +94,7 @@ const isActive = (href) => page.url === href || page.url.startsWith(href + '/');
             class="fixed inset-x-0 bottom-0 z-10 border-t border-rosa-200 bg-white/95 md:hidden"
             aria-label="Menu principal"
         >
-            <ul :class="isProfessional ? 'grid-cols-3' : 'grid-cols-4'" class="mx-auto grid max-w-2xl">
+            <ul :class="gridCols[tabs.length]" class="mx-auto grid max-w-2xl">
                 <li v-for="tab in tabs" :key="tab.href">
                     <Link
                         :href="tab.href"

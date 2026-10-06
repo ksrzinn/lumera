@@ -74,12 +74,12 @@ Legenda: `[ ]` pendente, `[x]` concluído.
 - [x] Histórico consolidado (questionários e ciclos)
 
 ## Etapa 8. Fale com um médico
-- [ ] Migrations e models `conversations` (patient_id, professional_id, assunto, status) e `messages` (conversation_id, sender_id, corpo)
-- [ ] Paciente: criar conversa, enviar mensagem e ver respostas
-- [ ] Profissional: caixa de entrada com conversas abertas, responder e fechar
-- [ ] Profissional: lista de pacientes que enviaram mensagem
-- [ ] Polling a cada 5 a 10 segundos no Vue para atualizar a conversa
-- [ ] Garantir que só os participantes acessem a conversa
+- [x] Migrations e models `conversations` (patient_id, professional_id, assunto, status) e `messages` (conversation_id, sender_id, corpo)
+- [x] Paciente: criar conversa, enviar mensagem e ver respostas
+- [x] Profissional: caixa de entrada com conversas abertas, responder e fechar
+- [x] Profissional: lista de pacientes que enviaram mensagem
+- [x] Polling a cada 5 a 10 segundos no Vue para atualizar a conversa
+- [x] Garantir que só os participantes acessem a conversa
 
 ## Etapa 9. Serviços de saúde próximos
 - [ ] Botão que usa a Geolocation API do navegador
