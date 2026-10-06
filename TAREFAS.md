@@ -35,14 +35,14 @@ Legenda: `[ ]` pendente, `[x]` concluído.
 - [x] Teste automatizado do middleware `role`
 
 ## Etapa 3. Páginas de informação (públicas)
-- [ ] O que é o câncer de colo de útero
-- [ ] Fatores de risco
-- [ ] Prevenção
-- [ ] HPV e vacinação
-- [ ] Sintomas
-- [ ] Exames
-- [ ] Rodapé de cada página com fontes (INCA e Ministério da Saúde)
-- [ ] Menu de navegação entre as páginas
+- [x] O que é o câncer de colo de útero
+- [x] Fatores de risco
+- [x] Prevenção
+- [x] HPV e vacinação
+- [x] Sintomas
+- [x] Exames
+- [x] Rodapé de cada página com fontes (INCA e Ministério da Saúde)
+- [x] Menu de navegação entre as páginas
 
 ## Etapa 4. Questionário de saúde
 - [ ] Migration e model `health_questionnaires`

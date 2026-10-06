@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\InfoController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -10,6 +11,9 @@ Route::get('/', function () {
         'canRegister' => Route::has('register'),
     ]);
 });
+
+Route::get('/informacoes', [InfoController::class, 'index'])->name('info.index');
+Route::get('/informacoes/{slug}', [InfoController::class, 'show'])->name('info.show');
 
 Route::middleware('auth')->group(function () {
     Route::get('/dashboard', fn () => redirect(auth()->user()->homeRoute()))->name('dashboard');

@@ -10,15 +10,18 @@ defineProps({
 
 const page = usePage();
 
-const isProfessional = page.props.auth.user.role === 'professional';
-const homeHref = isProfessional ? '/profissional' : '/paciente';
+const user = page.props.auth.user;
+const isProfessional = user?.role === 'professional';
+const homeHref = !user ? '/' : isProfessional ? '/profissional' : '/paciente';
 
-const tabs = [
-    { label: 'Início', icon: 'home', href: homeHref },
-    ...(isProfessional ? [] : [{ label: 'Exames', icon: 'exams', href: '/exames' }]),
-    { label: 'Chat', icon: 'chat', href: '/mensagens' },
-    { label: 'Perfil', icon: 'user', href: '/profile' },
-];
+const tabs = user
+    ? [
+          { label: 'Início', icon: 'home', href: homeHref },
+          ...(isProfessional ? [] : [{ label: 'Exames', icon: 'exams', href: '/exames' }]),
+          { label: 'Chat', icon: 'chat', href: '/mensagens' },
+          { label: 'Perfil', icon: 'user', href: '/profile' },
+      ]
+    : [];
 const isActive = (href) => page.url === href || page.url.startsWith(href + '/');
 </script>
 
@@ -56,6 +59,7 @@ const isActive = (href) => page.url === href || page.url.startsWith(href + '/');
                 </nav>
 
                 <Link
+                    v-if="user"
                     href="/logout"
                     method="post"
                     as="button"
@@ -64,19 +68,27 @@ const isActive = (href) => page.url === href || page.url.startsWith(href + '/');
                 >
                     <Icon name="logout" class="h-5 w-5" />
                 </Link>
+                <Link
+                    v-else
+                    href="/login"
+                    class="rounded-full bg-rosa-500 px-4 py-2 text-sm font-semibold text-white hover:bg-rosa-600"
+                >
+                    Entrar
+                </Link>
             </div>
         </header>
 
-        <main class="mx-auto w-full max-w-2xl flex-1 px-4 pb-28 pt-2 md:pb-10">
+        <main class="mx-auto w-full max-w-2xl flex-1 px-4 pt-2 md:pb-10" :class="user ? 'pb-28' : 'pb-10'">
             <slot />
         </main>
 
-        <footer class="mx-auto w-full max-w-2xl px-4 pb-24 text-center text-xs text-rosa-700/80 md:pb-6">
+        <footer class="mx-auto w-full max-w-2xl px-4 text-center text-xs text-rosa-700/80 md:pb-6" :class="user ? 'pb-24' : 'pb-6'">
             Conteúdo educativo, não substitui consulta médica.
             Fontes: INCA e Ministério da Saúde.
         </footer>
 
         <nav
+            v-if="user"
             class="fixed inset-x-0 bottom-0 z-10 border-t border-rosa-200 bg-white/95 md:hidden"
             aria-label="Menu principal"
         >

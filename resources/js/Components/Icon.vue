@@ -16,6 +16,10 @@ const paths = {
     check: 'M5 12l5 5 9-10',
     'chevron-right': 'M9 5l7 7-7 7',
     'arrow-left': 'M19 12H5M11 5l-7 7 7 7',
+    alert: 'M12 4l9 16H3zM12 10v4M12 17h.01',
+    shield: 'M12 3l8 3v6c0 4.5-3.2 7.8-8 9-4.8-1.2-8-4.5-8-9V6zM9 12l2 2 4-4',
+    syringe: 'M18 3l3 3M15 6l3 3M6 15l9-9 3 3-9 9H6zM6 18l-3 3M10 11l2 2',
+    drop: 'M12 3s6 6.5 6 11a6 6 0 01-12 0c0-4.5 6-11 6-11z',
     logout: 'M10 4H5v16h5M15 8l4 4-4 4M19 12H9',
 };
 </script>
