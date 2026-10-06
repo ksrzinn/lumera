@@ -1,30 +1,21 @@
 <script setup>
-import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
+import AppLayout from '@/Layouts/AppLayout.vue';
+import Alert from '@/Components/Alert.vue';
+import Card from '@/Components/Card.vue';
 import { Head } from '@inertiajs/vue3';
 </script>
 
 <template>
-    <Head title="Dashboard" />
+    <Head title="Início" />
 
-    <AuthenticatedLayout>
-        <template #header>
-            <h2
-                class="text-xl font-semibold leading-tight text-gray-800"
-            >
-                Dashboard
-            </h2>
-        </template>
+    <AppLayout>
+        <h2 class="text-xl font-semibold text-rosa-900">Olá!</h2>
+        <p class="mb-5 text-sm text-rosa-700">Sua saúde em dia é o melhor plano.</p>
 
-        <div class="py-12">
-            <div class="mx-auto max-w-7xl sm:px-6 lg:px-8">
-                <div
-                    class="overflow-hidden bg-white shadow-sm sm:rounded-lg"
-                >
-                    <div class="p-6 text-gray-900">
-                        You're logged in!
-                    </div>
-                </div>
-            </div>
+        <div class="space-y-3">
+            <Card icon="calendar" href="/lembretes">Seu próximo exame</Card>
+            <Card icon="info" href="/informacoes">Informações e prevenção</Card>
+            <Alert>A prevenção salva vidas!</Alert>
         </div>
-    </AuthenticatedLayout>
+    </AppLayout>
 </template>

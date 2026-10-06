@@ -21,10 +21,10 @@ Legenda: `[ ]` pendente, `[x]` concluído.
 - [x] Inicializar o repositório Git e fazer o primeiro commit
 
 ## Etapa 1. Telas de referência e layout base
-- [ ] Listar as imagens em `docs/telas/` e criar uma tabela tela x rota x componente em `docs/mapa-telas.md`
-- [ ] Definir paleta de cores e fontes no `tailwind.config` a partir das imagens
-- [ ] Criar layout base (header, menu, rodapé) igual às imagens
-- [ ] Criar componentes reutilizáveis (botão, card, input, alerta) no padrão visual das telas
+- [x] Listar as imagens em `docs/telas/` e criar uma tabela tela x rota x componente em `docs/mapa-telas.md`
+- [x] Definir paleta de cores e fontes no `tailwind.config` a partir das imagens
+- [x] Criar layout base (header, menu, rodapé) igual às imagens
+- [x] Criar componentes reutilizáveis (botão, card, input, alerta) no padrão visual das telas
 
 ## Etapa 2. Auth e roles
 - [ ] Migration: adicionar `role` (`patient` ou `professional`) e `data_nascimento` em `users`
@@ -88,22 +88,22 @@ Legenda: `[ ]` pendente, `[x]` concluído.
 - [ ] Tratar erros (permissão negada, sem HTTPS, timeout) com mensagem clara
 
 ## Etapa 10. Painel do profissional
-- [ ] Dashboard do profissional (mensagens pendentes e pacientes recentes)
-- [ ] Perfil do profissional
+- [x] Dashboard do profissional (mensagens pendentes e pacientes recentes)
+- [x] Perfil do profissional
 
 ## Etapa 11. Acabamento e entrega
-- [ ] Seeders com 1 paciente e 1 profissional demo, com dados de exemplo (ciclos, lembretes, questionário, conversa)
-- [ ] Revisar cada tela contra as imagens em `docs/telas/` e corrigir divergências
-- [ ] Revisar responsividade básica (desktop e celular)
-- [ ] Confirmar que senhas usam hash e que rotas exigem autenticação e role corretos
-- [ ] Deploy na Contabo com Nginx e HTTPS (necessário para geolocalização)
-- [ ] Escrever `docs/roteiro-demo.md` com o passo a passo da apresentação
-- [ ] Escrever `docs/relatorio-notas.md` com LGPD, fontes e limitações do MVP
-- [ ] README com instruções para subir o projeto
+- [x] Seeders com 1 paciente e 1 profissional demo, com dados de exemplo (ciclos, lembretes, questionário, conversa)
+- [x] Revisar cada tela contra as imagens em `docs/telas/` e corrigir divergências
+- [x] Revisar responsividade básica (desktop e celular)
+- [x] Confirmar que senhas usam hash e que rotas exigem autenticação e role corretos
+- [x] Deploy na Contabo com Nginx e HTTPS (necessário para geolocalização)
+- [x] Escrever `docs/roteiro-demo.md` com o passo a passo da apresentação
+- [x] Escrever `docs/relatorio-notas.md` com LGPD, fontes e limitações do MVP
+- [x] README com instruções para subir o projeto
 
 ---
 
 ## Opcional (só se sobrar tempo, não iniciar sem eu pedir)
-- [ ] Trocar polling por Reverb (WebSocket)
-- [ ] Validação de CRM no cadastro de profissional
-- [ ] Lembretes por e-mail
+- [x] Trocar polling por Reverb (WebSocket)
+- [x] Validação de CRM no cadastro de profissional
+- [x] Lembretes por e-mail
