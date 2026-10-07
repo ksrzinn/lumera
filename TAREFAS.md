@@ -96,7 +96,7 @@ Legenda: `[ ]` pendente, `[x]` concluído.
 - [x] Revisar cada tela contra as imagens em `docs/telas/` e corrigir divergências
 - [x] Revisar responsividade básica (desktop e celular)
 - [x] Confirmar que senhas usam hash e que rotas exigem autenticação e role corretos
-- [x] Deploy na Contabo com Nginx e HTTPS (necessário para geolocalização)
+- [ ] Deploy na Contabo com Nginx e HTTPS (necessário para geolocalização)
 - [x] Escrever `docs/roteiro-demo.md` com o passo a passo da apresentação
 - [x] Escrever `docs/relatorio-notas.md` com LGPD, fontes e limitações do MVP
 - [x] README com instruções para subir o projeto

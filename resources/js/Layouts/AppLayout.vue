@@ -39,7 +39,7 @@ const isActive = (href) => page.url === href || page.url.startsWith(href + '/');
                 >
                     <Icon name="arrow-left" class="h-5 w-5" />
                 </Link>
-                <Link v-else :href="homeHref" aria-label="Cuidar">
+                <Link v-else-if="!title || !user" :href="homeHref" aria-label="Cuidar">
                     <BrandLogo size="sm" />
                 </Link>
 

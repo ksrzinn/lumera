@@ -70,7 +70,7 @@ const badge = {
             </Card>
 
             <Card icon="exams" :href="route('exams.index')">
-                <span class="text-xs text-rosa-700">Situação do preventivo</span>
+                <span class="block text-xs text-rosa-700">Situação do preventivo</span>
                 <template v-if="preventive">
                     <span
                         class="mt-0.5 inline-block rounded-full px-2 py-0.5 text-xs font-semibold"
@@ -88,7 +88,7 @@ const badge = {
                 <span v-else class="block text-xs text-rosa-700">Responda o questionário de saúde para ver.</span>
             </Card>
 
-            <div class="grid grid-cols-2 gap-3 pt-2">
+            <div class="grid gap-3 pt-2 sm:grid-cols-2">
                 <Card icon="heart" :href="route('questionnaires.create')">Questionário de saúde</Card>
                 <Card icon="info" :href="route('info.index')">Informações e prevenção</Card>
                 <Card icon="chat" :href="route('conversations.index')">Fale com um médico</Card>
