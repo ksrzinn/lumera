@@ -42,6 +42,14 @@ class Conversation extends Model
     }
 
     /**
+     * Aberta e com a última mensagem enviada pela paciente.
+     */
+    public function awaitsProfessionalReply(): bool
+    {
+        return $this->isOpen() && $this->latestMessage?->sender_id === $this->patient_id;
+    }
+
+    /**
      * Conversas em que o usuário é participante.
      */
     public function scopeForUser(Builder $query, User $user): void

@@ -28,8 +28,7 @@ class ConversationController extends Controller
                 'status' => $c->status,
                 'with' => $user->id === $c->patient_id ? $c->professional->name : $c->patient->name,
                 'last_message' => $c->latestMessage?->corpo,
-                'awaiting_reply' => $c->isOpen() && $c->latestMessage?->sender_id === $c->patient_id
-                    && $user->id === $c->professional_id,
+                'awaiting_reply' => $user->id === $c->professional_id && $c->awaitsProfessionalReply(),
             ]);
 
         return Inertia::render('Messages/Index', ['conversations' => $conversations]);

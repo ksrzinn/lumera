@@ -36,6 +36,7 @@ const initials = computed(() =>
             </span>
             <p class="mt-3 text-lg font-semibold text-rosa-900">{{ user.name }}</p>
             <p class="text-sm text-rosa-700">{{ user.email }}</p>
+            <p v-if="!isPatient" class="mt-1 text-xs font-semibold text-rosa-600">Profissional de saúde</p>
         </div>
 
         <ul v-if="isPatient" class="mb-6 space-y-3">

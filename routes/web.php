@@ -8,6 +8,7 @@ use App\Http\Controllers\InfoController;
 use App\Http\Controllers\MessageController;
 use App\Http\Controllers\PatientDashboardController;
 use App\Http\Controllers\PatientListController;
+use App\Http\Controllers\ProfessionalDashboardController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\QuestionnaireController;
 use App\Http\Controllers\ReminderController;
@@ -59,7 +60,7 @@ Route::middleware('auth')->group(function () {
     });
 
     Route::middleware('role:professional')->group(function () {
-        Route::get('/profissional', fn () => Inertia::render('Professional/Dashboard'))->name('professional.dashboard');
+        Route::get('/profissional', ProfessionalDashboardController::class)->name('professional.dashboard');
         Route::get('/pacientes', PatientListController::class)->name('patients.index');
         Route::patch('/mensagens/{id}/fechar', [ConversationController::class, 'close'])->whereNumber('id')->name('conversations.close');
     });
