@@ -82,10 +82,10 @@ Legenda: `[ ]` pendente, `[x]` concluído.
 - [x] Garantir que só os participantes acessem a conversa
 
 ## Etapa 9. Serviços de saúde próximos
-- [ ] Botão que usa a Geolocation API do navegador
-- [ ] Abrir o Google Maps com a busca "UBS perto de mim" usando as coordenadas
-- [ ] Fallback: campo para digitar a cidade quando a permissão for negada
-- [ ] Tratar erros (permissão negada, sem HTTPS, timeout) com mensagem clara
+- [x] Botão que usa a Geolocation API do navegador
+- [x] Abrir o Google Maps com a busca "UBS perto de mim" usando as coordenadas
+- [x] Fallback: campo para digitar a cidade quando a permissão for negada
+- [x] Tratar erros (permissão negada, sem HTTPS, timeout) com mensagem clara
 
 ## Etapa 10. Painel do profissional
 - [x] Dashboard do profissional (mensagens pendentes e pacientes recentes)

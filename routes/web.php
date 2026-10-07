@@ -21,6 +21,8 @@ Route::get('/', function () {
     ]);
 });
 
+Route::get('/servicos', fn () => Inertia::render('Services/Index'))->name('services.index');
+
 Route::get('/informacoes', [InfoController::class, 'index'])->name('info.index');
 Route::get('/informacoes/{slug}', [InfoController::class, 'show'])->name('info.show');
 
