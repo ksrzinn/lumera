@@ -1,5 +1,4 @@
-# Produção atrás de um proxy HTTPS já existente no servidor.
-# Nenhuma porta é publicada no host: o proxy alcança o serviço "cuidar-web" pela rede ${PROXY_NETWORK}.
+# Produção em servidor compartilhado: sem proxy na frente, o nginx do Cuidar publica uma porta própria (CUIDAR_PORT).
 name: cuidar
 
 services:
@@ -16,19 +15,18 @@ services:
       postgres:
         condition: service_healthy
 
-  # O nome do serviço é único porque ele entra na rede compartilhada com outros projetos.
-  cuidar-web:
+  nginx:
     image: nginx:1.27-alpine
     restart: unless-stopped
+    ports:
+      - "${CUIDAR_PORT:-8090}:80"
     volumes:
       - .:/var/www/html:ro
       - ./docker/nginx/default.conf:/etc/nginx/conf.d/default.conf:ro
     depends_on:
       - app
-    networks:
-      - default
-      - proxy
 
+  # Sem porta publicada: só o app alcança o banco, pela rede interna do projeto.
   postgres:
     image: postgres:16-alpine
     restart: unless-stopped
@@ -43,11 +41,6 @@ services:
       interval: 3s
       timeout: 3s
       retries: 10
-
-networks:
-  proxy:
-    external: true
-    name: ${PROXY_NETWORK:?defina PROXY_NETWORK no .env}
 
 volumes:
   pgdata:
