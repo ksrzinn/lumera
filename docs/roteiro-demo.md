@@ -7,7 +7,7 @@ Duração estimada: 8 a 10 minutos. Use dois navegadores (ou uma janela anônima
 1. `docker compose up -d` e confirme que <http://localhost:8088> abre.
 2. Recrie os dados de exemplo: `docker compose exec app php artisan migrate:fresh --seed`.
 3. Permita a localização do navegador para `localhost` (ou deixe bloqueada para mostrar o fallback).
-4. Contas (senha `password`): `paciente@cuidar.test` e `profissional@cuidar.test`.
+4. Contas (senha `minhasenha`): `paciente@cuidar.test` e `profissional@cuidar.test`.
 
 ## Passo a passo
 

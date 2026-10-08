@@ -30,7 +30,7 @@ Para desenvolver o front com recarga automática, use `npm run dev` no lugar de 
 
 ## Contas de demonstração
 
-Criadas pelo seeder (`php artisan migrate:fresh --seed` recria tudo do zero). Senha das duas: `password`.
+Criadas pelo seeder (`php artisan migrate:fresh --seed` recria tudo do zero). Senha das duas: `minhasenha`.
 
 | Perfil | E-mail |
 |---|---|

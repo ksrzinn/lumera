@@ -8,7 +8,7 @@ use Illuminate\Database\Seeder;
 
 class DemoSeeder extends Seeder
 {
-    public const PASSWORD = 'password';
+    public const PASSWORD = 'minhasenha';
 
     public function run(): void
     {
