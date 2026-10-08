@@ -17,7 +17,9 @@ return Application::configure(basePath: dirname(__DIR__))
             \Illuminate\Http\Middleware\AddLinkHeadersForPreloadedAssets::class,
         ]);
 
-        $middleware->trustProxies(at: '*');
+        // O app só é alcançável pelo proxy, dentro de redes Docker (faixas privadas). O IP público do visitante
+        // não é confiável, então um X-Forwarded-For forjado pelo cliente é ignorado.
+        $middleware->trustProxies(at: ['10.0.0.0/8', '172.16.0.0/12', '192.168.0.0/16']);
 
         $middleware->alias([
             'role' => \App\Http\Middleware\EnsureUserHasRole::class,
