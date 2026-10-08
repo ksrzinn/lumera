@@ -23,6 +23,8 @@ Se estiver ocupada, escolha outra e use no passo 3. Se o provedor tem firewall n
 cd /var/www/html
 git clone https://github.com/ksrzinn/lumera.git cuidar
 cd cuidar
+# o dono dos arquivos vai mudar no passo 3; sem isto, o git (como root) recusa o diretório
+git config --global --add safe.directory /var/www/html/cuidar
 ```
 
 ## 3. Criar o `.env` de produção
