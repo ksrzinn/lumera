@@ -32,7 +32,7 @@ git config --global --add safe.directory /var/www/html/cuidar
 ```bash
 cp .env.example .env
 DBPASS=$(openssl rand -hex 16)
-IP=$(curl -s https://ifconfig.me)   # ou escreva o IP da VPS
+IP=SEU.IP.IPV4.AQUI   # IPv4 da VPS. Não use IPv6 nem deixe vazio: o artisan falha com "Host is malformed"
 sed -i \
   -e "s|^APP_ENV=.*|APP_ENV=production|" \
   -e "s|^APP_DEBUG=.*|APP_DEBUG=false|" \
@@ -41,6 +41,7 @@ sed -i \
 echo "CUIDAR_PORT=8090" >> .env
 # o servidor usa root; os arquivos do projeto precisam pertencer ao usuário 1000 do container
 chown -R 1000:1000 .
+grep -E '^APP_URL=' .env    # confira: deve ser http://IPV4:8090
 ```
 
 ## 4. Dependências e build do front
