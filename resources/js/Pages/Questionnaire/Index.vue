@@ -1,4 +1,5 @@
 <script setup>
+import { levelBadge } from '@/lib/careLevel';
 import AppLayout from '@/Layouts/AppLayout.vue';
 import Card from '@/Components/Card.vue';
 import { Head, Link } from '@inertiajs/vue3';
@@ -6,12 +7,6 @@ import { Head, Link } from '@inertiajs/vue3';
 defineProps({
     items: { type: Array, required: true },
 });
-
-const badge = {
-    baixo_risco: 'bg-green-100 text-green-800',
-    atencao: 'bg-amber-100 text-amber-800',
-    alta_prioridade: 'bg-red-100 text-red-800',
-};
 
 const formatDate = (iso) => new Date(`${iso}T00:00:00`).toLocaleDateString('pt-BR');
 </script>
@@ -28,8 +23,8 @@ const formatDate = (iso) => new Date(`${iso}T00:00:00`).toLocaleDateString('pt-B
             <li v-for="item in items" :key="item.id">
                 <Card icon="exams" :href="route('questionnaires.show', item.id)">
                     <span class="block font-medium text-rosa-900">{{ formatDate(item.created_at) }}</span>
-                    <span class="mt-1 inline-block rounded-full px-2 py-0.5 text-xs font-semibold" :class="badge[item.risk]">
-                        {{ item.risk_label }}
+                    <span class="mt-1 inline-block rounded-full px-2 py-0.5 text-xs font-semibold" :class="levelBadge[item.level]">
+                        {{ item.level_label }}
                     </span>
                 </Card>
             </li>

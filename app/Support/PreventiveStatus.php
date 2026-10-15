@@ -9,7 +9,7 @@ class PreventiveStatus
     /**
      * Situação do preventivo a partir do último questionário, ou null se ainda não respondeu.
      *
-     * @return array{questionnaire_id: int, answered_at: string, risk: string, risk_label: string, last_preventive: ?string}|null
+     * @return array{questionnaire_id: int, answered_at: string, level: string, level_label: string, last_preventive: ?string}|null
      */
     public static function for(User $user): ?array
     {
@@ -19,13 +19,13 @@ class PreventiveStatus
             return null;
         }
 
-        $risk = (new RiskClassifier)->classify($questionnaire);
+        $level = $questionnaire->analysis()->level;
 
         return [
             'questionnaire_id' => $questionnaire->id,
             'answered_at' => $questionnaire->created_at->toDateString(),
-            'risk' => $risk->value,
-            'risk_label' => $risk->label(),
+            'level' => $level->value,
+            'level_label' => $level->label(),
             'last_preventive' => $questionnaire->data_ultimo_preventivo?->toDateString(),
         ];
     }

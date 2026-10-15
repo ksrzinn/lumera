@@ -77,9 +77,12 @@ class DemoSeeder extends Seeder
             'idade' => 29,
             'fez_preventivo' => 'nao',
             'data_ultimo_preventivo' => null,
+            'historico_alteracao' => 'nao',
             'usa_camisinha' => 'nunca',
             'metodo_contraceptivo' => 'pilula',
             'vacinada_hpv' => 'nao',
+            'sintomas' => ['nenhum'],
+            'barreiras' => ['falta_informacao', 'vergonha'],
         ]);
         $older->created_at = now()->subMonths(6);
         $older->save();
@@ -88,9 +91,12 @@ class DemoSeeder extends Seeder
             'idade' => 30,
             'fez_preventivo' => 'sim',
             'data_ultimo_preventivo' => now()->subYears(2)->toDateString(),
+            'historico_alteracao' => 'nao',
             'usa_camisinha' => 'as_vezes',
             'metodo_contraceptivo' => 'pilula',
             'vacinada_hpv' => 'sim',
+            'sintomas' => ['nenhum'],
+            'barreiras' => ['nenhuma'],
         ]);
     }
 

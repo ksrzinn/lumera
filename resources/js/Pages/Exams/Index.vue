@@ -1,4 +1,5 @@
 <script setup>
+import { levelBadge } from '@/lib/careLevel';
 import AppLayout from '@/Layouts/AppLayout.vue';
 import Card from '@/Components/Card.vue';
 import { Head } from '@inertiajs/vue3';
@@ -9,11 +10,6 @@ defineProps({
 
 const formatDate = (iso) => new Date(`${iso}T00:00:00`).toLocaleDateString('pt-BR');
 
-const badge = {
-    baixo_risco: 'bg-green-100 text-green-800',
-    atencao: 'bg-amber-100 text-amber-800',
-    alta_prioridade: 'bg-red-100 text-red-800',
-};
 </script>
 
 <template>
@@ -26,9 +22,9 @@ const badge = {
             <template v-if="preventive">
                 <span
                     class="mt-2 inline-block rounded-full px-3 py-1 text-sm font-semibold"
-                    :class="badge[preventive.risk]"
+                    :class="levelBadge[preventive.level]"
                 >
-                    {{ preventive.risk_label }}
+                    {{ preventive.level_label }}
                 </span>
                 <p class="mt-2 text-sm text-rosa-800">
                     <template v-if="preventive.last_preventive">

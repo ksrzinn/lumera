@@ -2,8 +2,8 @@
 
 namespace App\Models;
 
-use App\Enums\RiskLevel;
-use App\Support\RiskClassifier;
+use App\Support\Anamnesis\AnamnesisAnalyzer;
+use App\Support\Anamnesis\AnamnesisResult;
 use Illuminate\Database\Eloquent\Attributes\Fillable;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -109,8 +109,8 @@ class HealthQuestionnaire extends Model
         return $this->belongsTo(User::class);
     }
 
-    public function riskLevel(): RiskLevel
+    public function analysis(): AnamnesisResult
     {
-        return (new RiskClassifier)->classify($this, $this->created_at);
+        return (new AnamnesisAnalyzer)->analyze($this, $this->created_at);
     }
 }
