@@ -22,10 +22,11 @@ MVP web de prevenção do câncer de colo de útero, para um trabalho de faculda
 - Lembretes: apenas lista dentro do app, com destaque no dashboard quando vencidos ou próximos
 - Fale com um médico: tabela `messages` com `conversation_id` e `sender_id`, atualização por polling (5 a 10s) no Vue
 - Serviços próximos: Geolocation API do navegador, abre Google Maps com busca "UBS perto de mim" usando as coordenadas. Fallback: campo para digitar a cidade
-- Questionário: classe de regras (sem IA) que devolve `baixo_risco`, `atencao` ou `alta_prioridade`
-  - Preventivo nunca feito ou há mais de 3 anos: alta prioridade
-  - Uso inconsistente de camisinha ou sem vacina HPV: atenção
-  - Caso contrário: baixo risco
+- Questionário (anamnese): classe de regras (sem IA e sem pontuação) em `app/Support/Anamnesis/AnamnesisAnalyzer.php` que combina respostas e devolve um nível (`em_dia`, `atencao_preventiva` ou `avaliacao_profissional`) e uma lista de achados com orientação
+  - Nível = achado mais importante. É prioridade de orientação, nunca diagnóstico nem probabilidade de câncer
+  - "Não sei", "não lembro" e "prefiro não responder" são informação desconhecida, nunca resposta negativa
+  - Não definir periodicidade só pelo tempo desde o último exame; janela de exame recente e faixa etária são constantes com `TODO: revisar`
+  - Textos de orientação ficam em `lang/pt_BR/anamnese.php`
 
 ## Conteúdo de saúde
 - Tudo é orientação educativa, nunca diagnóstico. Mostrar esse aviso na tela de resultado
@@ -48,6 +49,6 @@ MVP web de prevenção do câncer de colo de útero, para um trabalho de faculda
 ## Modelo de dados
 - users: id, nome, email, senha, role, data_nascimento
 - cycle_entries: id, user_id, data_inicio, data_fim, fluxo, sintomas, notas
-- health_questionnaires: id, user_id, idade, fez_preventivo, data_ultimo_preventivo, usa_camisinha, metodo_contraceptivo, vacinada_hpv, created_at
+- health_questionnaires: id, user_id, idade, fez_preventivo, data_ultimo_preventivo, historico_alteracao, acompanhamento_alteracao, usa_camisinha, metodo_contraceptivo, vacinada_hpv, sintomas (json), barreiras (json), created_at
 - reminders: id, user_id, titulo, data_hora, tipo, concluido
 - messages: id, conversation_id, sender_id, corpo, created_at (e uma tabela `conversations` com patient_id, professional_id, assunto, status)

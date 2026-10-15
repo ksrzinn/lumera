@@ -46,12 +46,12 @@ destaque de "vencido" e "próximo" aparece sempre que o seeder é executado.
 docker compose exec app php artisan test
 ```
 
-Os testes próprios do projeto cobrem o classificador de risco do questionário (`tests/Unit/RiskClassifierTest.php`)
+Os testes próprios do projeto cobrem o analisador da anamnese (`tests/Unit/AnamnesisAnalyzerTest.php`)
 e o middleware de perfil (`tests/Feature/RoleMiddlewareTest.php`). Os demais vieram do Breeze e foram adaptados.
 
 ## Organização
 
-- `app/Support/RiskClassifier.php`: regras do questionário (sem IA), devolve `baixo_risco`, `atencao` ou `alta_prioridade`.
+- `app/Support/Anamnesis/AnamnesisAnalyzer.php`: regras da anamnese (sem IA e sem pontuação), devolve `em_dia`, `atencao_preventiva` ou `avaliacao_profissional` e a lista de achados. Textos em `lang/pt_BR/anamnese.php`.
 - `app/Http/Middleware/EnsureUserHasRole.php`: middleware `role:patient` e `role:professional`.
 - `config/informacoes.php`: texto das páginas de informação, com fontes.
 - `resources/js/Pages`: telas Inertia. `docs/mapa-telas.md` relaciona cada tela de `docs/telas/` à rota e ao componente.
