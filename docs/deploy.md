@@ -1,6 +1,6 @@
 # Deploy em servidor compartilhado (sem domínio, por IP)
 
-O Cuidar roda com `docker-compose.prod.yml` e publica **uma única porta** (`CUIDAR_PORT`, padrão `8090`). O banco não
+O Lumera roda com `docker-compose.prod.yml` e publica **uma única porta** (`CUIDAR_PORT`, padrão `8090`). O banco não
 expõe porta. Nada nos outros projetos do servidor é alterado.
 
 > **Sem HTTPS.** Acessando por `http://IP:PORTA`, o navegador trata a página como não segura. Consequências:
@@ -101,4 +101,4 @@ docker compose -f docker-compose.prod.yml down -v     # para e apaga o banco
 - Com um proxy na frente, o Laravel precisa confiar nele (`trustProxies` em `bootstrap/app.php`) e o proxy precisa enviar
   `X-Forwarded-Proto` e acrescentar o IP real ao `X-Forwarded-For`. Sem isso, o app gera links `http` e o limite de
   tentativas de login pode ser burlado com um cabeçalho forjado.
-- Defina `APP_URL=https://dominio` e, se o proxy ficar na frente, deixe de publicar a porta do Cuidar no host.
+- Defina `APP_URL=https://dominio` e, se o proxy ficar na frente, deixe de publicar a porta do Lumera no host.

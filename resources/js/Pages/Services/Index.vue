@@ -84,7 +84,7 @@ const searchCity = () => {
             <h2 class="font-semibold text-rosa-900">Encontre uma unidade de saúde perto de você</h2>
             <p class="mt-1 text-sm text-rosa-800">
                 Usamos a localização do seu aparelho só para abrir a busca "{{ SEARCH_TERM }}" no Google Maps.
-                Nada é guardado no Cuidar.
+                Nada é guardado no Lumera.
             </p>
 
             <div class="mt-4">

@@ -1,4 +1,4 @@
-# Cuidar
+# Lumera
 
 MVP web de prevenção do câncer do colo do útero, feito como trabalho de faculdade. Todo o conteúdo é orientação
 educativa, nunca diagnóstico. Fontes: INCA e Ministério da Saúde.

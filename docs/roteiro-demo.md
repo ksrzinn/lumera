@@ -11,7 +11,7 @@ Duração estimada: 8 a 10 minutos. Use dois navegadores (ou uma janela anônima
 
 ## Passo a passo
 
-1. **Abertura** (`/`): marca "Cuidar" e os botões Entrar e Criar conta.
+1. **Abertura** (`/`): marca "Lumera" e os botões Entrar e Criar conta.
 2. **Cadastro** (`/register`): mostre a escolha de perfil (paciente ou profissional), a data de nascimento e o
    checkbox de consentimento (LGPD). Tente enviar sem marcar o consentimento para mostrar a validação. Não conclua o cadastro.
 3. **Informações** (`/informacoes`, sem login): abra "HPV e vacinação" e mostre o aviso educativo e as fontes (INCA e Ministério da Saúde).
