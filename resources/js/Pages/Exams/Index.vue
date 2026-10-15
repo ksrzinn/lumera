@@ -17,7 +17,7 @@ const formatDate = (iso) => new Date(`${iso}T00:00:00`).toLocaleDateString('pt-B
 
     <AppLayout title="Meus exames">
         <section class="mb-5 rounded-3xl bg-white/80 p-5 shadow-card">
-            <h2 class="font-semibold text-rosa-900">Exame preventivo (Papanicolau)</h2>
+            <h2 class="font-semibold text-rosa-900">Situação da sua prevenção</h2>
 
             <template v-if="preventive">
                 <span
@@ -30,7 +30,7 @@ const formatDate = (iso) => new Date(`${iso}T00:00:00`).toLocaleDateString('pt-B
                     <template v-if="preventive.last_preventive">
                         Último exame informado: {{ formatDate(preventive.last_preventive) }}
                     </template>
-                    <template v-else>Você informou que não fez ou não lembra do último exame.</template>
+                    <template v-else>{{ preventive.exam_note }}</template>
                 </p>
                 <p class="mt-1 text-xs text-rosa-700">
                     Com base no questionário de {{ formatDate(preventive.answered_at) }}. Orientação educativa, não

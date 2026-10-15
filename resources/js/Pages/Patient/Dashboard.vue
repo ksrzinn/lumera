@@ -66,7 +66,7 @@ const formatDateTime = (local) => new Date(local).toLocaleString('pt-BR', { date
             </Card>
 
             <Card icon="exams" :href="route('exams.index')">
-                <span class="block text-xs text-rosa-700">Situação do preventivo</span>
+                <span class="block text-xs text-rosa-700">Situação da sua prevenção</span>
                 <template v-if="preventive">
                     <span
                         class="mt-0.5 inline-block rounded-full px-2 py-0.5 text-xs font-semibold"
@@ -78,7 +78,7 @@ const formatDateTime = (local) => new Date(local).toLocaleString('pt-BR', { date
                         <template v-if="preventive.last_preventive">
                             Último exame: {{ formatDate(preventive.last_preventive) }}
                         </template>
-                        <template v-else>Sem exame preventivo informado</template>
+                        <template v-else>{{ preventive.exam_note }}</template>
                     </span>
                 </template>
                 <span v-else class="block text-xs text-rosa-700">Responda o questionário de saúde para ver.</span>

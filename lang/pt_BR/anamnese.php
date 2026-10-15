@@ -23,6 +23,12 @@ return [
         ],
     ],
 
+    'exame_nota' => [
+        'sem_data' => 'Você informou que fez o exame, mas não sabe a data.',
+        'nunca_feito' => 'Você informou que ainda não fez o exame.',
+        'desconhecido' => 'Você não soube ou preferiu não informar sobre o exame.',
+    ],
+
     'exame_desconhecido' => [
         'title' => 'Não foi possível confirmar seu exame preventivo',
         'guidance' => 'Você não soube ou preferiu não informar sobre o exame preventivo. Consulte seu histórico na unidade de saúde ou converse com um profissional para saber quando fez o último e quando deve fazer o próximo.',

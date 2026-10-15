@@ -24,13 +24,13 @@ class StoreHealthQuestionnaireRequest extends FormRequest
             'usa_camisinha' => ['required', Rule::in(array_keys(HealthQuestionnaire::CONDOM_OPTIONS))],
             'metodo_contraceptivo' => ['nullable', Rule::in(array_keys(HealthQuestionnaire::CONTRACEPTIVE_OPTIONS))],
             'vacinada_hpv' => ['required', Rule::in(array_keys(HealthQuestionnaire::HPV_VACCINE_OPTIONS))],
-            'sintomas' => ['required', 'array', 'min:1'],
+            'sintomas' => ['required', 'array', 'list', 'min:1'],
             'sintomas.*' => ['distinct', Rule::in([
                 ...array_keys(HealthQuestionnaire::SYMPTOM_OPTIONS),
                 HealthQuestionnaire::SYMPTOM_NONE,
                 HealthQuestionnaire::SKIPPED,
             ])],
-            'barreiras' => ['required', 'array', 'min:1'],
+            'barreiras' => ['required', 'array', 'list', 'min:1'],
             'barreiras.*' => ['distinct', Rule::in([
                 ...array_keys(HealthQuestionnaire::BARRIER_OPTIONS),
                 HealthQuestionnaire::BARRIER_NONE,
@@ -58,9 +58,13 @@ class StoreHealthQuestionnaireRequest extends FormRequest
      */
     private function rejectExclusiveMix(Validator $validator, string $field, array $exclusive): void
     {
+        if ($validator->errors()->has($field) || $validator->errors()->has("{$field}.*")) {
+            return;
+        }
+
         $selected = $this->input($field);
 
-        if (! is_array($selected) || count($selected) < 2) {
+        if (count($selected) < 2) {
             return;
         }
 
