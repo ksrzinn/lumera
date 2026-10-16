@@ -24,6 +24,8 @@ return [
     ],
 
     'exame_nota' => [
+        'data' => 'Último exame informado: :data.',
+        'periodo' => 'Último exame: :periodo.',
         'sem_data' => 'Você informou que fez o exame, mas não sabe a data.',
         'nunca_feito' => 'Você informou que ainda não fez o exame.',
         'desconhecido' => 'Você não soube ou preferiu não informar sobre o exame.',
@@ -62,11 +64,6 @@ return [
         'title' => 'Histórico de alteração sem acompanhamento confirmado',
         'guidance' => 'Você informou histórico de HPV, lesão no colo do útero ou alteração em exame, sem acompanhamento confirmado. Procure um serviço de saúde para verificar se está tudo em dia. Um diagnóstico anterior de HPV não significa câncer.',
     ],
-    'historico_desconhecido' => [
-        'title' => 'Histórico de alterações não confirmado',
-        'guidance' => 'Você não soube ou preferiu não informar se já teve HPV, lesão ou alteração em exame. Vale conferir seu histórico na unidade de saúde.',
-    ],
-
     'sintoma_sangramento_pos_relacao' => [
         'title' => 'Sangramento após relações sexuais',
         'guidance' => 'Esse sintoma pode ter várias causas e merece avaliação profissional. Procure a UBS ou um profissional de saúde.',
@@ -139,8 +136,65 @@ return [
         'guidance' => 'O exame preventivo busca identificar alterações no colo do útero antes que causem sintomas, e é uma das formas mais importantes de prevenção. Veja as páginas de informação do Lumera e converse com a equipe de saúde.',
     ],
 
+    'sem_colo_utero' => [
+        'title' => 'Sem útero ou colo do útero',
+        'guidance' => 'Você informou que não tem útero e colo do útero. Nesse caso, o rastreamento do câncer do colo do útero pode não se aplicar. Confirme com um profissional de saúde se ainda há alguma recomendação de acompanhamento para você.',
+    ],
+    'vida_sexual_nao_iniciada' => [
+        'title' => 'Vida sexual ainda não iniciada',
+        'guidance' => 'O rastreamento do câncer do colo do útero é indicado para quem já iniciou a vida sexual. Quando isso acontecer, converse com um profissional de saúde sobre quando começar o exame preventivo e sobre a vacina contra o HPV.',
+    ],
+    'colo_utero_desconhecido' => [
+        'title' => 'Útero e colo do útero não confirmados',
+        'guidance' => 'Você não soube informar se tem útero e colo do útero. Converse com um profissional de saúde para confirmar, pois isso define se o rastreamento se aplica ao seu caso.',
+    ],
+    'exame_nunca_feito_idade_desconhecida' => [
+        'title' => 'Exame preventivo ainda não realizado',
+        'guidance' => 'Você informou que nunca fez o exame preventivo e não informou sua faixa etária. Procure a UBS para saber se você está na faixa etária indicada para o rastreamento.',
+    ],
+    'resultado_desconhecido' => [
+        'title' => 'Resultado de exame não confirmado',
+        'guidance' => 'Você não sabe ou não buscou o resultado de um exame. Procure a unidade de saúde onde fez o exame para pegar o resultado e conversar com um profissional.',
+    ],
+    'duvida_contraceptivo_substitui' => [
+        'title' => 'Anticoncepcional e exame preventivo',
+        'guidance' => 'Anticoncepcionais ajudam a prevenir a gravidez, mas não substituem o exame preventivo e não protegem contra infecções sexualmente transmissíveis. O exame continua importante com qualquer método contraceptivo.',
+    ],
+    'duvida_vacina_substitui' => [
+        'title' => 'Vacina contra o HPV e exame preventivo',
+        'guidance' => 'A vacina contra o HPV é uma medida importante de prevenção, mas não elimina a necessidade do rastreamento do câncer do colo do útero. Mesmo vacinada, mantenha o exame preventivo conforme a orientação de um profissional de saúde.',
+    ],
+    'diagnostico_hpv' => [
+        'title' => 'Diagnóstico anterior de HPV',
+        'guidance' => 'Ter tido diagnóstico de HPV não significa ter câncer. Siga as orientações da sua equipe de saúde sobre acompanhamento e exames.',
+    ],
+    'diagnostico_ist' => [
+        'title' => 'Diagnóstico anterior de outra IST',
+        'guidance' => 'Converse com um profissional de saúde sobre o acompanhamento adequado e sobre como se proteger de novas infecções.',
+    ],
+    'exames_ist_sugestao' => [
+        'title' => 'Exames de infecções sexualmente transmissíveis',
+        'guidance' => 'Converse com um profissional de saúde sobre quando fazer exames para detectar infecções sexualmente transmissíveis. Pergunte na UBS quais testes estão disponíveis.',
+    ],
+    'preservativo_hpv_orientacao' => [
+        'title' => 'Preservativo e HPV',
+        'guidance' => 'O preservativo reduz o risco de transmissão do HPV, mas não oferece proteção total contra o vírus. Ele também não substitui a vacina contra o HPV nem o exame preventivo.',
+    ],
+    'vacina_onde' => [
+        'title' => 'Onde receber a vacina contra o HPV',
+        'guidance' => 'Pergunte na UBS de referência onde e como receber a vacina. A oferta gratuita pelo SUS segue critérios de elegibilidade e o calendário de vacinação vigente.',
+    ],
+    'consultas_pouco_frequentes' => [
+        'title' => 'Consultas ginecológicas',
+        'guidance' => 'Manter consultas regulares com um profissional de saúde ajuda a acompanhar sua saúde e esclarecer dúvidas, mesmo sem sintomas. Pergunte na UBS de referência como agendar.',
+    ],
+    'pilula_prolongada' => [
+        'title' => 'Uso prolongado de pílula anticoncepcional',
+        'guidance' => 'O uso de qualquer método contraceptivo não substitui o exame preventivo. Converse com um profissional de saúde sobre o método mais adequado para você e mantenha o rastreamento em dia.',
+    ],
+
     'versao_anterior' => [
         'title' => 'Questionário de versão anterior',
-        'guidance' => 'Este questionário foi respondido antes de algumas perguntas existirem (sintomas, histórico de alterações). Refaça o questionário para uma análise completa.',
+        'guidance' => 'Este questionário foi respondido antes de o questionário atual existir (várias perguntas não foram feitas). Refaça o questionário para uma análise completa.',
     ],
 ];

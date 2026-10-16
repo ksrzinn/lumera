@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreHealthQuestionnaireRequest;
 use App\Models\HealthQuestionnaire;
+use App\Support\Anamnesis\QuestionnaireDefinition;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
@@ -14,23 +15,7 @@ class QuestionnaireController extends Controller
     public function create(): Response
     {
         return Inertia::render('Questionnaire/Form', [
-            'options' => [
-                'preventivo' => HealthQuestionnaire::PREVENTIVE_OPTIONS,
-                'camisinha' => HealthQuestionnaire::CONDOM_OPTIONS,
-                'contraceptivo' => HealthQuestionnaire::CONTRACEPTIVE_OPTIONS,
-                'vacina' => HealthQuestionnaire::HPV_VACCINE_OPTIONS,
-                'historico_alteracao' => HealthQuestionnaire::ALTERATION_HISTORY_OPTIONS,
-                'acompanhamento' => HealthQuestionnaire::FOLLOW_UP_OPTIONS,
-                'sintomas' => [
-                    ...HealthQuestionnaire::SYMPTOM_OPTIONS,
-                    HealthQuestionnaire::SYMPTOM_NONE => 'Nenhum desses sintomas',
-                    HealthQuestionnaire::SKIPPED => 'Prefiro não responder',
-                ],
-                'barreiras' => [
-                    ...HealthQuestionnaire::BARRIER_OPTIONS,
-                    HealthQuestionnaire::BARRIER_NONE => 'Nenhuma dessas dificuldades',
-                ],
-            ],
+            'sections' => QuestionnaireDefinition::sections(),
         ]);
     }
 

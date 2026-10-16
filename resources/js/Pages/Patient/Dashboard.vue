@@ -74,12 +74,7 @@ const formatDateTime = (local) => new Date(local).toLocaleString('pt-BR', { date
                     >
                         {{ preventive.level_label }}
                     </span>
-                    <span class="block text-xs text-rosa-700">
-                        <template v-if="preventive.last_preventive">
-                            Último exame: {{ formatDate(preventive.last_preventive) }}
-                        </template>
-                        <template v-else>{{ preventive.exam_note }}</template>
-                    </span>
+                    <span class="block text-xs text-rosa-700">{{ preventive.exam_note }}</span>
                 </template>
                 <span v-else class="block text-xs text-rosa-700">Responda o questionário de saúde para ver.</span>
             </Card>
