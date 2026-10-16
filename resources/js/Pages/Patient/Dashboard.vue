@@ -1,4 +1,5 @@
 <script setup>
+import { levelBadge } from '@/lib/careLevel';
 import AppLayout from '@/Layouts/AppLayout.vue';
 import Card from '@/Components/Card.vue';
 import { Head, Link, usePage } from '@inertiajs/vue3';
@@ -15,11 +16,6 @@ const firstName = usePage().props.auth.user.name.split(' ')[0];
 const formatDate = (iso) => new Date(`${iso}T00:00:00`).toLocaleDateString('pt-BR');
 const formatDateTime = (local) => new Date(local).toLocaleString('pt-BR', { dateStyle: 'long', timeStyle: 'short' });
 
-const badge = {
-    baixo_risco: 'bg-green-100 text-green-800',
-    atencao: 'bg-amber-100 text-amber-800',
-    alta_prioridade: 'bg-red-100 text-red-800',
-};
 </script>
 
 <template>
@@ -70,19 +66,19 @@ const badge = {
             </Card>
 
             <Card icon="exams" :href="route('exams.index')">
-                <span class="block text-xs text-rosa-700">Situação do preventivo</span>
+                <span class="block text-xs text-rosa-700">Situação da sua prevenção</span>
                 <template v-if="preventive">
                     <span
                         class="mt-0.5 inline-block rounded-full px-2 py-0.5 text-xs font-semibold"
-                        :class="badge[preventive.risk]"
+                        :class="levelBadge[preventive.level]"
                     >
-                        {{ preventive.risk_label }}
+                        {{ preventive.level_label }}
                     </span>
                     <span class="block text-xs text-rosa-700">
                         <template v-if="preventive.last_preventive">
                             Último exame: {{ formatDate(preventive.last_preventive) }}
                         </template>
-                        <template v-else>Sem exame preventivo informado</template>
+                        <template v-else>{{ preventive.exam_note }}</template>
                     </span>
                 </template>
                 <span v-else class="block text-xs text-rosa-700">Responda o questionário de saúde para ver.</span>

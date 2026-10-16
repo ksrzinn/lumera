@@ -5,7 +5,7 @@ import BrandLogo from '@/Components/BrandLogo.vue';
 
 <template>
     <div class="flex min-h-screen flex-col items-center bg-rosa-100 px-4 py-10 sm:justify-center">
-        <Link href="/" aria-label="Cuidar">
+        <Link href="/" aria-label="Lumera">
             <BrandLogo size="md" />
         </Link>
 

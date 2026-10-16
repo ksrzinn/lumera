@@ -1,11 +1,11 @@
 # Mapa de telas
 
-Referência: `docs/telas/WhatsApp Image 2026-10-06 at 20.23.49.jpeg` (15 telas de app mobile, marca "Cuidar").
+Referência: `docs/telas/WhatsApp Image 2026-10-06 at 20.23.49.jpeg` (15 telas de app mobile, marca "Cuidar" nas imagens, hoje Lumera no app).
 Layout em coluna única, estilo app, com barra inferior (Início, Exames, Chat, Perfil).
 
 | # | Tela de referência | Rota | Componente Vue | Etapa |
 |---|---|---|---|---|
-| 1 | Splash / logo "Cuidar" | `/` | `Pages/Welcome.vue` | 1 |
+| 1 | Splash / logo "Lumera" | `/` | `Pages/Welcome.vue` | 1 |
 | 2 | Bem-vinda! (login) | `/login` | `Pages/Auth/Login.vue` | 2 |
 | 3 | Criar conta | `/register` | `Pages/Auth/Register.vue` | 2 |
 | 4 | Escolha o seu acesso (paciente ou profissional) | `/register` (seletor de perfil) | `Pages/Auth/Register.vue` | 2 |
@@ -33,7 +33,7 @@ Layout em coluna única, estilo app, com barra inferior (Início, Exames, Chat, 
 | `Components/TextInput.vue` | Campo de texto arredondado |
 | `Components/Alert.vue` | Avisos (info, sucesso, atenção, erro) |
 | `Components/Icon.vue` | Ícones de linha usados nas telas |
-| `Components/BrandLogo.vue` | Marca "Cuidar" |
+| `Components/BrandLogo.vue` | Marca "Lumera" |
 
 ## Observações
 - Itens da referência fora do escopo (CLAUDE.md): "Esqueci minha senha" não será implementado; "Entrar com CPF" não existe no modelo de dados (login por e-mail).

@@ -11,17 +11,18 @@ Duração estimada: 8 a 10 minutos. Use dois navegadores (ou uma janela anônima
 
 ## Passo a passo
 
-1. **Abertura** (`/`): marca "Cuidar" e os botões Entrar e Criar conta.
+1. **Abertura** (`/`): marca "Lumera" e os botões Entrar e Criar conta.
 2. **Cadastro** (`/register`): mostre a escolha de perfil (paciente ou profissional), a data de nascimento e o
    checkbox de consentimento (LGPD). Tente enviar sem marcar o consentimento para mostrar a validação. Não conclua o cadastro.
 3. **Informações** (`/informacoes`, sem login): abra "HPV e vacinação" e mostre o aviso educativo e as fontes (INCA e Ministério da Saúde).
 4. **Login como paciente** (`paciente@cuidar.test`): o login leva para o painel da paciente.
 5. **Dashboard**: aponte a faixa de lembrete vencido, o próximo lembrete (selo "Próximo"), o último ciclo e a situação do preventivo.
-6. **Questionário** (`Questionário de saúde`): responda os 5 passos. Para mostrar as faixas de risco:
-   - preventivo "Não" resulta em Alta prioridade;
-   - preventivo recente com camisinha "Às vezes" resulta em Atenção;
-   - preventivo recente com camisinha "Sempre" e vacinada resulta em Baixo risco.
-   Mostre o aviso de que o resultado não é diagnóstico e o histórico.
+6. **Questionário** (`Questionário de saúde`): responda os 8 passos. Para mostrar os três níveis:
+   - preventivo "Não" (idade entre 25 e 64) resulta em Necessidade de avaliação profissional;
+   - preventivo recente com camisinha "Às vezes" resulta em Atenção preventiva;
+   - preventivo recente, camisinha "Sempre", vacinada, sem sintomas, resulta em Acompanhamento aparentemente em dia;
+   - marcar "Sangramento intenso com tontura, desmaio ou mal-estar" mostra a faixa de urgência.
+   Mostre as seções de pontos de atenção, orientações e próximos passos, o aviso de que o resultado não é diagnóstico e o histórico.
 7. **Ciclo** (`/ciclo`): registre um novo ciclo com sintomas e mostre o aviso que aparece ao marcar um sintoma.
 8. **Lembretes** (`/lembretes`): conclua um lembrete, use os filtros e crie um novo.
 9. **Serviços de saúde** (`/servicos`): clique em "Usar minha localização" e mostre o Google Maps abrindo com "UBS perto de mim".

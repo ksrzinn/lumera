@@ -1,4 +1,5 @@
 <script setup>
+import { levelBadge } from '@/lib/careLevel';
 import AppLayout from '@/Layouts/AppLayout.vue';
 import Card from '@/Components/Card.vue';
 import { Head } from '@inertiajs/vue3';
@@ -9,11 +10,6 @@ defineProps({
 
 const formatDate = (iso) => new Date(`${iso}T00:00:00`).toLocaleDateString('pt-BR');
 
-const badge = {
-    baixo_risco: 'bg-green-100 text-green-800',
-    atencao: 'bg-amber-100 text-amber-800',
-    alta_prioridade: 'bg-red-100 text-red-800',
-};
 </script>
 
 <template>
@@ -21,20 +17,20 @@ const badge = {
 
     <AppLayout title="Meus exames">
         <section class="mb-5 rounded-3xl bg-white/80 p-5 shadow-card">
-            <h2 class="font-semibold text-rosa-900">Exame preventivo (Papanicolau)</h2>
+            <h2 class="font-semibold text-rosa-900">Situação da sua prevenção</h2>
 
             <template v-if="preventive">
                 <span
                     class="mt-2 inline-block rounded-full px-3 py-1 text-sm font-semibold"
-                    :class="badge[preventive.risk]"
+                    :class="levelBadge[preventive.level]"
                 >
-                    {{ preventive.risk_label }}
+                    {{ preventive.level_label }}
                 </span>
                 <p class="mt-2 text-sm text-rosa-800">
                     <template v-if="preventive.last_preventive">
                         Último exame informado: {{ formatDate(preventive.last_preventive) }}
                     </template>
-                    <template v-else>Você informou que não fez ou não lembra do último exame.</template>
+                    <template v-else>{{ preventive.exam_note }}</template>
                 </p>
                 <p class="mt-1 text-xs text-rosa-700">
                     Com base no questionário de {{ formatDate(preventive.answered_at) }}. Orientação educativa, não

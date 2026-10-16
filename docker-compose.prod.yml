@@ -1,4 +1,4 @@
-# Produção em servidor compartilhado: sem proxy na frente, o nginx do Cuidar publica uma porta própria (CUIDAR_PORT).
+# Produção em servidor compartilhado: sem proxy na frente, o nginx do Lumera publica uma porta própria (CUIDAR_PORT).
 name: cuidar
 
 services:
