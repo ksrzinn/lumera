@@ -27,6 +27,7 @@ MVP web de prevenção do câncer de colo de útero, para um trabalho de faculda
   - "Não sei", "não lembro" e "prefiro não responder" são informação desconhecida, nunca resposta negativa
   - Não definir periodicidade só pelo tempo desde o último exame; janela de exame recente e faixa etária são constantes com `TODO: revisar`
   - Textos de orientação ficam em `lang/pt_BR/anamnese.php`
+  - As 27 perguntas (mais sintomas e barreiras de acesso, no final) ficam em `config/questionnaire.php`, que alimenta o formulário, a validação e o analisador. Não remover pergunta sem pedido explícito
 
 ## Conteúdo de saúde
 - Tudo é orientação educativa, nunca diagnóstico. Mostrar esse aviso na tela de resultado
@@ -49,6 +50,6 @@ MVP web de prevenção do câncer de colo de útero, para um trabalho de faculda
 ## Modelo de dados
 - users: id, nome, email, senha, role, data_nascimento
 - cycle_entries: id, user_id, data_inicio, data_fim, fluxo, sintomas, notas
-- health_questionnaires: id, user_id, idade, fez_preventivo, data_ultimo_preventivo, historico_alteracao, acompanhamento_alteracao, usa_camisinha, metodo_contraceptivo, vacinada_hpv, sintomas (json), barreiras (json), created_at
+- health_questionnaires: id, user_id, uma coluna por pergunta das 27 do questionário (definidas em `config/questionnaire.php`, ex.: faixa_etaria, fez_preventivo, quando_ultimo_preventivo, resultado_preventivo, usa_camisinha, vacinada_hpv), metodos_contraceptivos (json), sintomas (json), barreiras (json), created_at. `idade`, `data_ultimo_preventivo` e `metodo_contraceptivo` são de questionários antigos
 - reminders: id, user_id, titulo, data_hora, tipo, concluido
 - messages: id, conversation_id, sender_id, corpo, created_at (e uma tabela `conversations` com patient_id, professional_id, assunto, status)

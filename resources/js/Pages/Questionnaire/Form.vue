@@ -5,74 +5,66 @@ import CheckboxGroup from '@/Components/CheckboxGroup.vue';
 import InputError from '@/Components/InputError.vue';
 import PrimaryButton from '@/Components/PrimaryButton.vue';
 import RadioGroup from '@/Components/RadioGroup.vue';
-import SelectInput from '@/Components/SelectInput.vue';
-import TextInput from '@/Components/TextInput.vue';
 import { Head, useForm } from '@inertiajs/vue3';
 
 const props = defineProps({
-    options: { type: Object, required: true },
+    sections: { type: Array, required: true },
 });
 
-const ages = Object.fromEntries(Array.from({ length: 112 }, (_, i) => [String(i + 9), `${i + 9} anos`]));
+const QUESTIONS_PER_STEP = 4;
 
-const form = useForm({
-    idade: '',
-    fez_preventivo: '',
-    data_ultimo_preventivo: '',
-    historico_alteracao: '',
-    acompanhamento_alteracao: '',
-    usa_camisinha: '',
-    metodo_contraceptivo: '',
-    vacinada_hpv: '',
-    sintomas: [],
-    barreiras: [],
+// Numeração fixa pela ordem da definição, para casar com o roteiro do questionário.
+let counter = 0;
+const numbered = props.sections.map((section) => ({
+    ...section,
+    questions: section.questions.map((question) => ({ ...question, number: ++counter })),
+}));
+
+// Seções longas são divididas em etapas de tamanho parecido.
+const steps = numbered.flatMap((section) => {
+    const parts = Math.ceil(section.questions.length / QUESTIONS_PER_STEP);
+    const size = Math.ceil(section.questions.length / parts);
+
+    return Array.from({ length: parts }, (_, i) => ({
+        title: section.title,
+        questions: section.questions.slice(i * size, (i + 1) * size),
+    }));
 });
 
-const step = ref(1);
-const total = 8;
-const today = new Date().toISOString().slice(0, 10);
+const form = useForm(
+    Object.fromEntries(
+        numbered.flatMap((section) => section.questions).map((q) => [q.field, q.type === 'checkbox' ? [] : '']),
+    ),
+);
 
-const stepIsAnswered = computed(() => {
-    switch (step.value) {
-        case 1:
-            return form.idade !== '';
-        case 2:
-            return form.fez_preventivo !== '';
-        case 3:
-            return form.historico_alteracao !== '' && (form.historico_alteracao !== 'sim' || form.acompanhamento_alteracao !== '');
-        case 4:
-            return form.usa_camisinha !== '';
-        case 5:
-            return form.metodo_contraceptivo !== '';
-        case 6:
-            return form.vacinada_hpv !== '';
-        case 7:
-            return form.sintomas.length > 0;
-        default:
-            return form.barreiras.length > 0;
-    }
-});
+const step = ref(0);
+const total = steps.length;
+
+const isVisible = (question) => !question.show_if || form[question.show_if.field] === question.show_if.equals;
+const visibleQuestions = computed(() => steps[step.value].questions.filter(isVisible));
+
+const isAnswered = (question) =>
+    question.type === 'checkbox' ? form[question.field].length > 0 : form[question.field] !== '';
+
+const stepIsAnswered = computed(() => visibleQuestions.value.every(isAnswered));
 
 const stepWithError = computed(() => {
-    const fieldStep = {
-        idade: 1,
-        fez_preventivo: 2,
-        data_ultimo_preventivo: 2,
-        historico_alteracao: 3,
-        acompanhamento_alteracao: 3,
-        usa_camisinha: 4,
-        metodo_contraceptivo: 5,
-        vacinada_hpv: 6,
-        sintomas: 7,
-        barreiras: 8,
-    };
-    const steps = Object.keys(form.errors).map((field) => fieldStep[field.split('.')[0]]);
-    return steps.length ? Math.min(...steps) : null;
+    const fields = Object.keys(form.errors).map((key) => key.split('.')[0]);
+    const indexes = steps
+        .map((s, index) => (s.questions.some((q) => fields.includes(q.field)) ? index : null))
+        .filter((index) => index !== null);
+
+    return indexes.length ? Math.min(...indexes) : null;
 });
 
 const next = () => {
-    if (step.value < total) {
+    if (step.value < total - 1) {
+        // pergunta oculta não guarda resposta
+        steps[step.value].questions
+            .filter((q) => !isVisible(q))
+            .forEach((q) => (form[q.field] = q.type === 'checkbox' ? [] : ''));
         step.value++;
+        window.scrollTo({ top: 0 });
         return;
     }
 
@@ -89,94 +81,35 @@ const next = () => {
 
     <AppLayout title="Questionário de saúde" :back="route('patient.dashboard')">
         <div class="mb-6">
-            <div class="mb-1 flex justify-end text-xs text-rosa-700">{{ step }} de {{ total }}</div>
+            <div class="mb-1 flex justify-between text-xs text-rosa-700">
+                <span>{{ steps[step].title }}</span>
+                <span>{{ step + 1 }} de {{ total }}</span>
+            </div>
             <div class="h-1.5 rounded-full bg-rosa-200">
                 <div
                     class="h-1.5 rounded-full bg-rosa-500 transition-all"
-                    :style="{ width: `${(step / total) * 100}%` }"
+                    :style="{ width: `${((step + 1) / total) * 100}%` }"
                 />
             </div>
         </div>
 
-        <form @submit.prevent="next" class="space-y-6">
-            <div v-if="step === 1">
-                <h2 class="mb-3 font-semibold text-rosa-900">Qual a sua idade?</h2>
-                <SelectInput v-model="form.idade" :options="ages" />
-                <InputError class="mt-2" :message="form.errors.idade" />
-            </div>
+        <form @submit.prevent="next" class="space-y-8">
+            <div v-for="question in visibleQuestions" :key="question.field" class="space-y-3">
+                <h2 class="font-semibold text-rosa-900">{{ question.number }}. {{ question.label }}</h2>
 
-            <div v-else-if="step === 2" class="space-y-3">
-                <h2 class="font-semibold text-rosa-900">Você já fez o exame preventivo (Papanicolau)?</h2>
-                <RadioGroup v-model="form.fez_preventivo" name="fez_preventivo" :options="props.options.preventivo" />
-                <InputError :message="form.errors.fez_preventivo" />
-
-                <div v-if="form.fez_preventivo === 'sim'" class="pt-2">
-                    <label for="data_ultimo_preventivo" class="mb-1 block text-sm font-medium text-rosa-800">
-                        Quando foi o último? (se não souber a data, deixe em branco)
-                    </label>
-                    <TextInput id="data_ultimo_preventivo" type="date" :max="today" v-model="form.data_ultimo_preventivo" />
-                    <InputError class="mt-2" :message="form.errors.data_ultimo_preventivo" />
-                </div>
-            </div>
-
-            <div v-else-if="step === 3" class="space-y-3">
-                <h2 class="font-semibold text-rosa-900">
-                    Você já teve diagnóstico de HPV, lesão no colo do útero ou alteração em exame preventivo?
-                </h2>
-                <RadioGroup
-                    v-model="form.historico_alteracao"
-                    name="historico_alteracao"
-                    :options="props.options.historico_alteracao"
-                />
-                <InputError :message="form.errors.historico_alteracao" />
-
-                <div v-if="form.historico_alteracao === 'sim'" class="space-y-3 pt-2">
-                    <h3 class="text-sm font-medium text-rosa-800">Você fez o acompanhamento recomendado pela equipe de saúde?</h3>
-                    <RadioGroup
-                        v-model="form.acompanhamento_alteracao"
-                        name="acompanhamento_alteracao"
-                        :options="props.options.acompanhamento"
-                    />
-                    <InputError :message="form.errors.acompanhamento_alteracao" />
-                </div>
-            </div>
-
-            <div v-else-if="step === 4" class="space-y-3">
-                <h2 class="font-semibold text-rosa-900">Você usa camisinha nas relações sexuais?</h2>
-                <RadioGroup v-model="form.usa_camisinha" name="usa_camisinha" :options="props.options.camisinha" />
-                <InputError :message="form.errors.usa_camisinha" />
-            </div>
-
-            <div v-else-if="step === 5">
-                <h2 class="mb-3 font-semibold text-rosa-900">Qual método contraceptivo você usa?</h2>
-                <SelectInput v-model="form.metodo_contraceptivo" :options="props.options.contraceptivo" />
-                <InputError class="mt-2" :message="form.errors.metodo_contraceptivo" />
-            </div>
-
-            <div v-else-if="step === 6" class="space-y-3">
-                <h2 class="font-semibold text-rosa-900">Você tomou a vacina contra o HPV?</h2>
-                <RadioGroup v-model="form.vacinada_hpv" name="vacinada_hpv" :options="props.options.vacina" />
-                <InputError :message="form.errors.vacinada_hpv" />
-            </div>
-
-            <div v-else-if="step === 7" class="space-y-3">
-                <h2 class="font-semibold text-rosa-900">Você tem ou teve algum destes sintomas recentemente?</h2>
                 <CheckboxGroup
-                    v-model="form.sintomas"
-                    :options="props.options.sintomas"
-                    :exclusive="['nenhum', 'prefiro_nao_responder']"
+                    v-if="question.type === 'checkbox'"
+                    v-model="form[question.field]"
+                    :options="question.options"
+                    :exclusive="question.exclusive ?? []"
                 />
-                <InputError :message="form.errors.sintomas" />
-            </div>
+                <RadioGroup v-else v-model="form[question.field]" :name="question.field" :options="question.options" />
 
-            <div v-else class="space-y-3">
-                <h2 class="font-semibold text-rosa-900">Algo dificulta você de fazer exames ou ir ao serviço de saúde?</h2>
-                <CheckboxGroup v-model="form.barreiras" :options="props.options.barreiras" :exclusive="['nenhuma']" />
-                <InputError :message="form.errors.barreiras" />
+                <InputError :message="form.errors[question.field]" />
             </div>
 
             <PrimaryButton :disabled="!stepIsAnswered || form.processing">
-                {{ step === total ? 'Ver resultado' : 'Próximo' }}
+                {{ step === total - 1 ? 'Ver resultado' : 'Próximo' }}
             </PrimaryButton>
         </form>
     </AppLayout>

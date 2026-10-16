@@ -105,7 +105,7 @@ Legenda: `[ ]` pendente, `[x]` concluído.
 - [x] Migration: histórico de alteração, acompanhamento, sintomas e barreiras em `health_questionnaires`
 - [x] Analisador de regras por combinação de respostas, com 3 níveis e achados (`AnamnesisAnalyzer`)
 - [x] Testes automatizados do analisador (desconhecido não é negativo, prioridade, urgência, versão anterior)
-- [x] Formulário em 8 etapas (exame, histórico de alteração, preservativo com "não se aplica", vacina, sintomas, barreiras)
+- [x] Formulário em 9 etapas com as 27 perguntas do questionário (perfil, exame preventivo, contraceptivos, preservativos e ISTs, vacina HPV) mais sintomas e dificuldades de acesso, definidas em `config/questionnaire.php`
 - [x] Resultado em 4 blocos: urgência, classificação, pontos de atenção, orientações e próximos passos
 - [x] Dashboard, histórico e seeders com os novos níveis
 - [x] Marca do app: Cuidar vira Lumera

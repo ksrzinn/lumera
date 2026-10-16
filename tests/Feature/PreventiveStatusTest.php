@@ -5,10 +5,12 @@ namespace Tests\Feature;
 use App\Models\User;
 use App\Support\PreventiveStatus;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Tests\Concerns\AnswersQuestionnaire;
 use Tests\TestCase;
 
 class PreventiveStatusTest extends TestCase
 {
+    use AnswersQuestionnaire;
     use RefreshDatabase;
 
     protected function tearDown(): void
@@ -18,27 +20,23 @@ class PreventiveStatusTest extends TestCase
         parent::tearDown();
     }
 
-    private function answer(User $user, array $overrides = []): void
+    private function answer(User $user, array $answers): void
     {
-        $questionnaire = $user->healthQuestionnaires()->make(array_merge([
-            'idade' => 30,
-            'fez_preventivo' => 'sim',
-            'data_ultimo_preventivo' => '2024-04-01',
-            'historico_alteracao' => 'nao',
-            'usa_camisinha' => 'sempre',
-            'metodo_contraceptivo' => 'pilula',
-            'vacinada_hpv' => 'sim',
-            'sintomas' => ['nenhum'],
-            'barreiras' => ['nenhuma'],
-        ], $overrides));
+        $questionnaire = $user->healthQuestionnaires()->make($answers);
         $questionnaire->created_at = '2026-10-01';
         $questionnaire->save();
     }
 
-    public function test_status_ages_with_the_current_date_not_the_answer_date(): void
+    public function test_legacy_status_ages_with_the_current_date_not_the_answer_date(): void
     {
         $user = User::factory()->patient()->create();
-        $this->answer($user);
+        $this->answer($user, [
+            'idade' => 30,
+            'fez_preventivo' => 'sim',
+            'data_ultimo_preventivo' => '2024-04-01',
+            'usa_camisinha' => 'sempre',
+            'vacinada_hpv' => 'sim',
+        ]);
 
         $this->travelTo(now()->setDate(2026, 10, 2));
         $this->assertSame('em_dia', PreventiveStatus::for($user)['level']);
@@ -47,17 +45,19 @@ class PreventiveStatusTest extends TestCase
         $this->assertSame('atencao_preventiva', PreventiveStatus::for($user)['level']);
     }
 
-    public function test_exam_note_explains_each_missing_date_case(): void
+    public function test_exam_note_describes_the_informed_exam_in_each_case(): void
     {
         $cases = [
-            [['data_ultimo_preventivo' => null], 'não sabe a data'],
-            [['fez_preventivo' => 'nao', 'data_ultimo_preventivo' => null], 'ainda não fez'],
-            [['fez_preventivo' => 'prefiro_nao_responder', 'data_ultimo_preventivo' => null], 'preferiu não informar'],
+            [['quando_ultimo_preventivo' => '1_a_2_anos'], 'entre 1 e 2 anos atrás'],
+            [['quando_ultimo_preventivo' => 'sem_data'], 'não sabe a data'],
+            [['fez_preventivo' => 'nao', 'quando_ultimo_preventivo' => 'nunca'], 'ainda não fez'],
+            [['fez_preventivo' => 'nao_tenho_certeza', 'quando_ultimo_preventivo' => 'nao_lembro_se_fez'], 'preferiu não informar'],
+            [['faixa_etaria' => null, 'quando_ultimo_preventivo' => null, 'data_ultimo_preventivo' => '2024-04-01'], '01/04/2024'],
         ];
 
         foreach ($cases as [$answers, $expected]) {
             $user = User::factory()->patient()->create();
-            $this->answer($user, $answers);
+            $this->answer($user, array_merge($this->validAnswers(), $answers));
 
             $this->assertStringContainsString($expected, PreventiveStatus::for($user)['exam_note'], $expected);
         }

@@ -2,7 +2,7 @@
 
 namespace App\Http\Requests;
 
-use App\Models\HealthQuestionnaire;
+use App\Support\Anamnesis\QuestionnaireDefinition;
 use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
@@ -15,31 +15,28 @@ class StoreHealthQuestionnaireRequest extends FormRequest
      */
     public function rules(): array
     {
-        return [
-            'idade' => ['required', 'integer', 'between:9,120'],
-            'fez_preventivo' => ['required', Rule::in(array_keys(HealthQuestionnaire::PREVENTIVE_OPTIONS))],
-            'data_ultimo_preventivo' => ['nullable', 'date', 'before_or_equal:today'],
-            'historico_alteracao' => ['required', Rule::in(array_keys(HealthQuestionnaire::ALTERATION_HISTORY_OPTIONS))],
-            'acompanhamento_alteracao' => ['nullable', 'required_if:historico_alteracao,sim', Rule::in(array_keys(HealthQuestionnaire::FOLLOW_UP_OPTIONS))],
-            'usa_camisinha' => ['required', Rule::in(array_keys(HealthQuestionnaire::CONDOM_OPTIONS))],
-            'metodo_contraceptivo' => ['nullable', Rule::in(array_keys(HealthQuestionnaire::CONTRACEPTIVE_OPTIONS))],
-            'vacinada_hpv' => ['required', Rule::in(array_keys(HealthQuestionnaire::HPV_VACCINE_OPTIONS))],
-            'sintomas' => ['required', 'array', 'list', 'min:1'],
-            'sintomas.*' => ['distinct', Rule::in([
-                ...array_keys(HealthQuestionnaire::SYMPTOM_OPTIONS),
-                HealthQuestionnaire::SYMPTOM_NONE,
-                HealthQuestionnaire::SKIPPED,
-            ])],
-            'barreiras' => ['required', 'array', 'list', 'min:1'],
-            'barreiras.*' => ['distinct', Rule::in([
-                ...array_keys(HealthQuestionnaire::BARRIER_OPTIONS),
-                HealthQuestionnaire::BARRIER_NONE,
-            ])],
-        ];
+        $rules = [];
+
+        foreach (QuestionnaireDefinition::questions() as $question) {
+            $field = $question['field'];
+            $allowed = Rule::in(array_keys($question['options']));
+            $condition = isset($question['show_if'])
+                ? ['nullable', "required_if:{$question['show_if']['field']},{$question['show_if']['equals']}"]
+                : ['required'];
+
+            if ($question['type'] === 'checkbox') {
+                $rules[$field] = [...$condition, 'array', 'list', 'min:1'];
+                $rules["{$field}.*"] = ['distinct', $allowed];
+            } else {
+                $rules[$field] = [...$condition, $allowed];
+            }
+        }
+
+        return $rules;
     }
 
     /**
-     * "Nenhum" e "prefiro não responder" não combinam com outras opções.
+     * Opções "nenhum" / "prefiro não responder" não combinam com outras.
      *
      * @return list<callable>
      */
@@ -47,8 +44,11 @@ class StoreHealthQuestionnaireRequest extends FormRequest
     {
         return [
             function (Validator $validator) {
-                $this->rejectExclusiveMix($validator, 'sintomas', [HealthQuestionnaire::SYMPTOM_NONE, HealthQuestionnaire::SKIPPED]);
-                $this->rejectExclusiveMix($validator, 'barreiras', [HealthQuestionnaire::BARRIER_NONE]);
+                foreach (QuestionnaireDefinition::questions() as $question) {
+                    if ($question['type'] === 'checkbox') {
+                        $this->rejectExclusiveMix($validator, $question['field'], $question['exclusive'] ?? []);
+                    }
+                }
             },
         ];
     }
@@ -64,16 +64,14 @@ class StoreHealthQuestionnaireRequest extends FormRequest
 
         $selected = $this->input($field);
 
-        if (count($selected) < 2) {
-            return;
-        }
-
-        if (array_intersect($selected, $exclusive) !== []) {
-            $validator->errors()->add($field, 'Escolha apenas uma opção quando selecionar "nenhum" ou "prefiro não responder".');
+        if (count($selected) > 1 && array_intersect($selected, $exclusive) !== []) {
+            $validator->errors()->add($field, 'Escolha apenas uma opção quando selecionar uma resposta como "nenhum", "não sei" ou "prefiro não responder".');
         }
     }
 
     /**
+     * Perguntas ocultas pela condição de exibição não guardam resposta.
+     *
      * @return array<string, mixed>
      */
     public function validated($key = null, $default = null)
@@ -81,12 +79,12 @@ class StoreHealthQuestionnaireRequest extends FormRequest
         $data = parent::validated($key, $default);
 
         if ($key === null) {
-            if (($data['fez_preventivo'] ?? null) !== 'sim') {
-                $data['data_ultimo_preventivo'] = null;
-            }
+            foreach (QuestionnaireDefinition::questions() as $question) {
+                $condition = $question['show_if'] ?? null;
 
-            if (($data['historico_alteracao'] ?? null) !== 'sim') {
-                $data['acompanhamento_alteracao'] = null;
+                if ($condition !== null && ($data[$condition['field']] ?? null) !== $condition['equals']) {
+                    $data[$question['field']] = null;
+                }
             }
         }
 

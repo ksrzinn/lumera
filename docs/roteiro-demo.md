@@ -17,10 +17,10 @@ Duração estimada: 8 a 10 minutos. Use dois navegadores (ou uma janela anônima
 3. **Informações** (`/informacoes`, sem login): abra "HPV e vacinação" e mostre o aviso educativo e as fontes (INCA e Ministério da Saúde).
 4. **Login como paciente** (`paciente@cuidar.test`): o login leva para o painel da paciente.
 5. **Dashboard**: aponte a faixa de lembrete vencido, o próximo lembrete (selo "Próximo"), o último ciclo e a situação do preventivo.
-6. **Questionário** (`Questionário de saúde`): responda os 8 passos. Para mostrar os três níveis:
-   - preventivo "Não" (idade entre 25 e 64) resulta em Necessidade de avaliação profissional;
+6. **Questionário** (`Questionário de saúde`): responda as 9 etapas (27 perguntas do questionário, mais sintomas e dificuldades). Para mostrar os três níveis:
+   - preventivo "Não" (faixa etária entre 25 e 64 anos) resulta em Necessidade de avaliação profissional;
    - preventivo recente com camisinha "Às vezes" resulta em Atenção preventiva;
-   - preventivo recente, camisinha "Sempre", vacinada, sem sintomas, resulta em Acompanhamento aparentemente em dia;
+   - preventivo recente, camisinha "Sempre", vacina completa, sem sintomas, resulta em Acompanhamento aparentemente em dia;
    - marcar "Sangramento intenso com tontura, desmaio ou mal-estar" mostra a faixa de urgência.
    Mostre as seções de pontos de atenção, orientações e próximos passos, o aviso de que o resultado não é diagnóstico e o histórico.
 7. **Ciclo** (`/ciclo`): registre um novo ciclo com sintomas e mostre o aviso que aparece ao marcar um sintoma.

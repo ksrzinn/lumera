@@ -26,12 +26,7 @@ const formatDate = (iso) => new Date(`${iso}T00:00:00`).toLocaleDateString('pt-B
                 >
                     {{ preventive.level_label }}
                 </span>
-                <p class="mt-2 text-sm text-rosa-800">
-                    <template v-if="preventive.last_preventive">
-                        Último exame informado: {{ formatDate(preventive.last_preventive) }}
-                    </template>
-                    <template v-else>{{ preventive.exam_note }}</template>
-                </p>
+                <p class="mt-2 text-sm text-rosa-800">{{ preventive.exam_note }}</p>
                 <p class="mt-1 text-xs text-rosa-700">
                     Com base no questionário de {{ formatDate(preventive.answered_at) }}. Orientação educativa, não
                     diagnóstico.

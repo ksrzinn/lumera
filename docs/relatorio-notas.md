@@ -34,7 +34,7 @@ do questionário, no formulário de ciclo e no rodapé.
 | `config/informacoes.php` (Sintomas) | Sintomas de casos avançados |
 | `config/informacoes.php` (Exames) | Periodicidade (25 a 64 anos, 3 anos após dois exames normais) e o teste DNA-HPV citado pelo INCA a partir de 2024; oferta do exame na UBS |
 | `lang/pt_BR/anamnese.php` | Todos os textos de orientação, urgência e acompanhamento da análise da anamnese |
-| `app/Support/Anamnesis/AnamnesisAnalyzer.php` | Janela de exame "recente" (3 anos, citologia do INCA; o teste DNA-HPV usa 5), faixa etária de rastreamento (25 a 64) e a regra de que respostas desconhecidas pedem verificação, não alerta |
+| `app/Support/Anamnesis/AnamnesisAnalyzer.php` | Janela de exame "recente" (3 anos, citologia do INCA; o teste DNA-HPV usa 5), faixa etária de rastreamento (25 a 64), rastreamento não cobrado de quem não tem colo do útero ou não iniciou a vida sexual, e a regra de que respostas desconhecidas pedem verificação, não alerta |
 | `resources/js/Pages/Cycle/Form.vue` | Aviso exibido ao marcar sintomas |
 
 ## Limitações do MVP
@@ -42,8 +42,10 @@ do questionário, no formulário de ciclo e no rodapé.
 - **Análise por regras, não por diagnóstico:** o questionário combina respostas (exame, histórico de alterações, sintomas,
   preservativo, vacina e barreiras de acesso) e devolve uma prioridade de orientação, nunca uma probabilidade de câncer.
   A janela de exame recente e a faixa etária são constantes provisórias a confirmar com a profissional de saúde.
-- **Questionários antigos:** respostas feitas antes das perguntas de sintomas e histórico são reclassificadas na leitura
-  e mostram um aviso de versão anterior.
+- **Questionários antigos:** respostas do formulário de 5 perguntas são reclassificadas na leitura (idade, data do exame e
+  método antigos) e mostram um aviso de versão anterior.
+- **Perguntas só informativas:** idade da primeira relação, quando lembra o ano, teste de HPV, tempo de uso do contraceptivo,
+  situações de uso do preservativo e idade da primeira dose são guardadas, mas não mudam o nível.
 - **Urgência:** o app apenas orienta buscar pronto atendimento ou o SAMU (192) quando há sangramento intenso com mal-estar.
 - **Consentimento não registrado:** o checkbox é validado, mas a data do aceite não é gravada (o modelo de dados não tem o campo).
 - **Sem recuperação de senha nem verificação de e-mail:** fora do escopo, então não há e-mail no sistema.

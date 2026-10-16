@@ -51,7 +51,7 @@ e o middleware de perfil (`tests/Feature/RoleMiddlewareTest.php`). Os demais vie
 
 ## Organização
 
-- `app/Support/Anamnesis/AnamnesisAnalyzer.php`: regras da anamnese (sem IA e sem pontuação), devolve `em_dia`, `atencao_preventiva` ou `avaliacao_profissional` e a lista de achados. Textos em `lang/pt_BR/anamnese.php`.
+- `app/Support/Anamnesis/AnamnesisAnalyzer.php`: regras da anamnese (sem IA e sem pontuação; lê as respostas de `config/questionnaire.php`), devolve `em_dia`, `atencao_preventiva` ou `avaliacao_profissional` e a lista de achados. Textos em `lang/pt_BR/anamnese.php`.
 - `app/Http/Middleware/EnsureUserHasRole.php`: middleware `role:patient` e `role:professional`.
 - `config/informacoes.php`: texto das páginas de informação, com fontes.
 - `resources/js/Pages`: telas Inertia. `docs/mapa-telas.md` relaciona cada tela de `docs/telas/` à rota e ao componente.

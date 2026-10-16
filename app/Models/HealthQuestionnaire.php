@@ -8,15 +8,39 @@ use Illuminate\Database\Eloquent\Attributes\Fillable;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
+// As colunas `idade`, `data_ultimo_preventivo` e `metodo_contraceptivo` pertencem a questionários antigos
+// e continuam legíveis; o formulário atual grava as demais (ver config/questionnaire.php).
 #[Fillable([
     'idade',
-    'fez_preventivo',
     'data_ultimo_preventivo',
-    'usa_camisinha',
     'metodo_contraceptivo',
-    'vacinada_hpv',
-    'historico_alteracao',
+    'faixa_etaria',
+    'vida_sexual_iniciada',
+    'idade_primeira_relacao',
+    'possui_colo_utero',
+    'fez_preventivo',
+    'quando_ultimo_preventivo',
+    'lembra_ano_preventivo',
+    'resultado_preventivo',
+    'resultado_alterado_anterior',
     'acompanhamento_alteracao',
+    'teste_hpv',
+    'frequencia_consultas',
+    'usa_contraceptivo',
+    'metodos_contraceptivos',
+    'tempo_uso_contraceptivo',
+    'uso_prolongado_pilula',
+    'acredita_anticoncepcional_substitui',
+    'usa_camisinha',
+    'situacoes_preservativo',
+    'sabe_preservativo_hpv',
+    'exames_ist',
+    'diagnostico_hpv',
+    'diagnostico_outra_ist',
+    'vacinada_hpv',
+    'idade_primeira_dose',
+    'sabe_onde_vacinar',
+    'acredita_vacina_elimina_rastreio',
     'sintomas',
     'barreiras',
 ])]
@@ -24,81 +48,11 @@ class HealthQuestionnaire extends Model
 {
     public const UPDATED_AT = null;
 
-    public const PREVENTIVE_OPTIONS = [
-        'sim' => 'Sim',
-        'nao' => 'Não',
-        'nao_lembro' => 'Não lembro',
-        'prefiro_nao_responder' => 'Prefiro não responder',
-    ];
-
-    public const CONDOM_OPTIONS = [
-        'sempre' => 'Sempre',
-        'maioria_das_vezes' => 'Na maioria das vezes',
-        'as_vezes' => 'Às vezes',
-        'raramente' => 'Raramente',
-        'nunca' => 'Nunca',
-        'nao_se_aplica' => 'Não se aplica',
-        'prefiro_nao_responder' => 'Prefiro não responder',
-    ];
-
-    public const CONTRACEPTIVE_OPTIONS = [
-        'nenhum' => 'Nenhum',
-        'pilula' => 'Pílula',
-        'dispositivo_intrauterino' => 'DIU',
-        'injetavel' => 'Injetável',
-        'implante' => 'Implante',
-        'camisinha' => 'Camisinha',
-        'outro' => 'Outro',
-    ];
-
-    public const HPV_VACCINE_OPTIONS = [
-        'sim' => 'Sim',
-        'nao' => 'Não',
-        'nao_sei' => 'Não sei',
-        'prefiro_nao_responder' => 'Prefiro não responder',
-    ];
-
-    public const ALTERATION_HISTORY_OPTIONS = [
-        'sim' => 'Sim',
-        'nao' => 'Não',
-        'nao_sei' => 'Não sei',
-        'prefiro_nao_responder' => 'Prefiro não responder',
-    ];
-
-    public const FOLLOW_UP_OPTIONS = [
-        'sim' => 'Sim, fiz o acompanhamento recomendado',
-        'em_andamento' => 'Estou em acompanhamento',
-        'nao' => 'Não',
-        'nao_sei' => 'Não sei',
-    ];
-
-    public const SYMPTOM_OPTIONS = [
-        'sangramento_pos_relacao' => 'Sangramento após relações sexuais',
-        'sangramento_fora_menstruacao' => 'Sangramento vaginal fora do período menstrual',
-        'sangramento_pos_menopausa' => 'Sangramento após a menopausa',
-        'dor_pelvica_persistente' => 'Dor pélvica que não passa',
-        'corrimento_persistente' => 'Corrimento diferente do habitual que não passa',
-        'sangramento_intenso_com_mal_estar' => 'Sangramento intenso com tontura, desmaio ou mal-estar',
-    ];
-
-    public const SYMPTOM_NONE = 'nenhum';
-
-    public const BARRIER_OPTIONS = [
-        'sem_tempo' => 'Falta de tempo',
-        'dificuldade_agendamento' => 'Dificuldade para agendar',
-        'medo' => 'Medo',
-        'vergonha' => 'Vergonha',
-        'falta_informacao' => 'Falta de informação',
-    ];
-
-    public const BARRIER_NONE = 'nenhuma';
-
-    public const SKIPPED = 'prefiro_nao_responder';
-
     protected function casts(): array
     {
         return [
             'data_ultimo_preventivo' => 'date',
+            'metodos_contraceptivos' => 'array',
             'sintomas' => 'array',
             'barreiras' => 'array',
         ];
