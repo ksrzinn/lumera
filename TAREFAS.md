@@ -48,7 +48,7 @@ Legenda: `[ ]` pendente, `[x]` concluído.
 - [x] Migration e model `health_questionnaires`
 - [x] Form Request com validação (idade, preventivo, data do último, camisinha, contraceptivo, vacina HPV)
 - [x] Formulário do questionário igual à tela de referência
-- [x] Classe de regras que devolve `baixo_risco`, `atencao` ou `alta_prioridade`
+- [x] Classe de regras que devolve `em_dia`, `atencao_preventiva` ou `avaliacao_profissional` (ver Etapa 12)
 - [x] Testes automatizados da classe de regras (todas as faixas e casos de borda)
 - [x] Tela de resultado com aviso de que é orientação educativa, não diagnóstico
 - [x] Histórico dos questionários anteriores do paciente
@@ -100,6 +100,16 @@ Legenda: `[ ]` pendente, `[x]` concluído.
 - [x] Escrever `docs/roteiro-demo.md` com o passo a passo da apresentação
 - [x] Escrever `docs/relatorio-notas.md` com LGPD, fontes e limitações do MVP
 - [x] README com instruções para subir o projeto
+
+## Etapa 12. Análise da anamnese
+- [x] Migration: histórico de alteração, acompanhamento, sintomas e barreiras em `health_questionnaires`
+- [x] Analisador de regras por combinação de respostas, com 3 níveis e achados (`AnamnesisAnalyzer`)
+- [x] Testes automatizados do analisador (desconhecido não é negativo, prioridade, urgência, versão anterior)
+- [x] Formulário em 8 etapas (exame, histórico de alteração, preservativo com "não se aplica", vacina, sintomas, barreiras)
+- [x] Resultado em 4 blocos: urgência, classificação, pontos de atenção, orientações e próximos passos
+- [x] Dashboard, histórico e seeders com os novos níveis
+- [x] Marca do app: Cuidar vira Lumera
+- [ ] Profissional de saúde confirmar: janela de exame recente (3 ou 5 anos), faixa etária e textos de `lang/pt_BR/anamnese.php`
 
 ---
 

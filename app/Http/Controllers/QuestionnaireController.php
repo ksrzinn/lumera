@@ -19,6 +19,17 @@ class QuestionnaireController extends Controller
                 'camisinha' => HealthQuestionnaire::CONDOM_OPTIONS,
                 'contraceptivo' => HealthQuestionnaire::CONTRACEPTIVE_OPTIONS,
                 'vacina' => HealthQuestionnaire::HPV_VACCINE_OPTIONS,
+                'historico_alteracao' => HealthQuestionnaire::ALTERATION_HISTORY_OPTIONS,
+                'acompanhamento' => HealthQuestionnaire::FOLLOW_UP_OPTIONS,
+                'sintomas' => [
+                    ...HealthQuestionnaire::SYMPTOM_OPTIONS,
+                    HealthQuestionnaire::SYMPTOM_NONE => 'Nenhum desses sintomas',
+                    HealthQuestionnaire::SKIPPED => 'Prefiro não responder',
+                ],
+                'barreiras' => [
+                    ...HealthQuestionnaire::BARRIER_OPTIONS,
+                    HealthQuestionnaire::BARRIER_NONE => 'Nenhuma dessas dificuldades',
+                ],
             ],
         ]);
     }
@@ -35,12 +46,16 @@ class QuestionnaireController extends Controller
         $items = $request->user()->healthQuestionnaires()
             ->latest()
             ->get()
-            ->map(fn (HealthQuestionnaire $q) => [
-                'id' => $q->id,
-                'created_at' => $q->created_at->toDateString(),
-                'risk' => $q->riskLevel()->value,
-                'risk_label' => $q->riskLevel()->label(),
-            ]);
+            ->map(function (HealthQuestionnaire $q) {
+                $level = $q->analysis()->level;
+
+                return [
+                    'id' => $q->id,
+                    'created_at' => $q->created_at->toDateString(),
+                    'level' => $level->value,
+                    'level_label' => $level->label(),
+                ];
+            });
 
         return Inertia::render('Questionnaire/Index', ['items' => $items]);
     }
@@ -48,17 +63,21 @@ class QuestionnaireController extends Controller
     public function show(Request $request, int $id): Response
     {
         $questionnaire = $request->user()->healthQuestionnaires()->findOrFail($id);
-        $risk = $questionnaire->riskLevel();
+        $analysis = $questionnaire->analysis();
 
         return Inertia::render('Questionnaire/Show', [
             'questionnaire' => [
                 'id' => $questionnaire->id,
                 'created_at' => $questionnaire->created_at->toDateString(),
             ],
-            'risk' => [
-                'level' => $risk->value,
-                'label' => $risk->label(),
-                'orientation' => $risk->orientation(),
+            'analysis' => [
+                'level' => $analysis->level->value,
+                'label' => $analysis->level->label(),
+                'summary' => $analysis->level->summary(),
+                'follow_up' => $analysis->level->followUp(),
+                'urgent' => $analysis->urgent,
+                'attention_points' => array_map(fn ($f) => $f->toArray(), $analysis->attentionPoints()),
+                'guidance' => array_map(fn ($f) => $f->toArray(), $analysis->findings),
             ],
         ]);
     }

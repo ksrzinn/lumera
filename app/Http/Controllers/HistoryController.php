@@ -19,8 +19,8 @@ class HistoryController extends Controller
             'key' => "q{$q->id}",
             'date' => $q->created_at->toDateString(),
             'title' => 'Questionário de saúde',
-            'detail' => $q->riskLevel()->label(),
-            'risk' => $q->riskLevel()->value,
+            'detail' => $q->analysis()->level->label(),
+            'level' => $q->analysis()->level->value,
             'href' => route('questionnaires.show', $q->id),
         ]);
 
@@ -30,7 +30,7 @@ class HistoryController extends Controller
             'date' => $c->data_inicio->toDateString(),
             'title' => 'Registro de ciclo',
             'detail' => $c->data_fim ? 'Até '.$c->data_fim->format('d/m/Y') : 'Em andamento',
-            'risk' => null,
+            'level' => null,
             'href' => route('cycle.edit', $c->id),
         ]);
 

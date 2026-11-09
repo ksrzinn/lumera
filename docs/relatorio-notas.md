@@ -33,14 +33,18 @@ do questionário, no formulário de ciclo e no rodapé.
 | `config/informacoes.php` (HPV e vacinação) | Faixas etárias e doses da vacina pelo SUS (o calendário muda); tipos 16 e 18 e os 70% dos casos |
 | `config/informacoes.php` (Sintomas) | Sintomas de casos avançados |
 | `config/informacoes.php` (Exames) | Periodicidade (25 a 64 anos, 3 anos após dois exames normais) e o teste DNA-HPV citado pelo INCA a partir de 2024; oferta do exame na UBS |
-| `app/Enums/RiskLevel.php` | Textos de orientação das três faixas |
-| `app/Support/RiskClassifier.php` | "Não lembro" (preventivo) e "não sei" (vacina) tratados como não confirmados |
+| `lang/pt_BR/anamnese.php` | Todos os textos de orientação, urgência e acompanhamento da análise da anamnese |
+| `app/Support/Anamnesis/AnamnesisAnalyzer.php` | Janela de exame "recente" (3 anos, citologia do INCA; o teste DNA-HPV usa 5), faixa etária de rastreamento (25 a 64) e a regra de que respostas desconhecidas pedem verificação, não alerta |
 | `resources/js/Pages/Cycle/Form.vue` | Aviso exibido ao marcar sintomas |
 
 ## Limitações do MVP
 
-- **Classificação por regras simples:** o questionário não considera a idade. Uma adolescente que nunca fez o preventivo
-  recebe "alta prioridade", embora o exame seja indicado a partir dos 25 anos. As regras seguem o CLAUDE.md.
+- **Análise por regras, não por diagnóstico:** o questionário combina respostas (exame, histórico de alterações, sintomas,
+  preservativo, vacina e barreiras de acesso) e devolve uma prioridade de orientação, nunca uma probabilidade de câncer.
+  A janela de exame recente e a faixa etária são constantes provisórias a confirmar com a profissional de saúde.
+- **Questionários antigos:** respostas feitas antes das perguntas de sintomas e histórico são reclassificadas na leitura
+  e mostram um aviso de versão anterior.
+- **Urgência:** o app apenas orienta buscar pronto atendimento ou o SAMU (192) quando há sangramento intenso com mal-estar.
 - **Consentimento não registrado:** o checkbox é validado, mas a data do aceite não é gravada (o modelo de dados não tem o campo).
 - **Sem recuperação de senha nem verificação de e-mail:** fora do escopo, então não há e-mail no sistema.
 - **Sem validação de CRM:** qualquer pessoa pode se cadastrar como profissional, e a paciente escolhe com quem conversar.
@@ -49,6 +53,6 @@ do questionário, no formulário de ciclo e no rodapé.
 - **Serviços próximos:** apenas abre o Google Maps; não há lista própria de unidades de saúde.
 - **Segurança básica:** sem registro de auditoria, sem criptografia dos dados em repouso além da do servidor e sem
   limite de tentativas fora do login.
-- **Testes automatizados:** só o classificador do questionário e o middleware de perfil, como definido para o MVP.
+- **Testes automatizados:** só o analisador do questionário e o middleware de perfil, como definido para o MVP.
 - **Fuso horário:** o app usa `America/Sao_Paulo`.
 - **Sem validação clínica:** o conteúdo não passou por revisão de um profissional de saúde.
