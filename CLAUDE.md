@@ -49,7 +49,7 @@ MVP web de prevenção do câncer de colo de útero, para um trabalho de faculda
 
 ## Modelo de dados
 - users: id, nome, email, senha, role, data_nascimento
-- cycle_entries: id, user_id, data_inicio, data_fim, fluxo, sintomas, notas
+- cycle_entries: id, user_id, data_inicio, data_fim, fluxo, sintomas, sintomas_outros (texto livre quando "outros" está marcado), notas
 - health_questionnaires: id, user_id, uma coluna por pergunta das 27 do questionário (definidas em `config/questionnaire.php`, ex.: faixa_etaria, fez_preventivo, quando_ultimo_preventivo, resultado_preventivo, usa_camisinha, vacinada_hpv), metodos_contraceptivos (json), sintomas (json), barreiras (json), created_at. `idade`, `data_ultimo_preventivo` e `metodo_contraceptivo` são de questionários antigos
 - reminders: id, user_id, titulo, data_hora, tipo, concluido
 - messages: id, conversation_id, sender_id, corpo, created_at (e uma tabela `conversations` com patient_id, professional_id, assunto, status)

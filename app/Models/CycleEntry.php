@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Attributes\Fillable;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
-#[Fillable(['data_inicio', 'data_fim', 'fluxo', 'sintomas', 'notas'])]
+#[Fillable(['data_inicio', 'data_fim', 'fluxo', 'sintomas', 'sintomas_outros', 'notas'])]
 class CycleEntry extends Model
 {
     public const FLOW_OPTIONS = [
@@ -20,6 +20,7 @@ class CycleEntry extends Model
         'corrimento_odor_forte' => 'Corrimento com odor forte',
         'dor_relacao_sexual' => 'Dor durante a relação sexual',
         'dor_pelvica' => 'Dor pélvica',
+        'outros' => 'Outros',
         'nenhum' => 'Nenhum sintoma',
     ];
 

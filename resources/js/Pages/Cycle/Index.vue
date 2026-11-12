@@ -74,7 +74,7 @@ const remove = (entry) => {
                             :key="symptom"
                             class="rounded-full bg-rosa-100 px-2 py-0.5 text-xs text-rosa-800"
                         >
-                            {{ symptomOptions[symptom] }}
+                            {{ symptom === 'outros' && entry.sintomas_outros ? entry.sintomas_outros : symptomOptions[symptom] }}
                         </li>
                     </ul>
                     <p v-if="entry.notas" class="mt-2 text-xs text-rosa-800">{{ entry.notas }}</p>

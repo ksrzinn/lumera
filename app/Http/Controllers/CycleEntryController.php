@@ -76,6 +76,7 @@ class CycleEntryController extends Controller
             'data_fim' => $entry->data_fim?->toDateString(),
             'fluxo' => $entry->fluxo,
             'sintomas' => $entry->sintomas ?? [],
+            'sintomas_outros' => $entry->sintomas_outros,
             'notas' => $entry->notas,
         ];
     }

@@ -20,6 +20,7 @@ const form = useForm({
     data_fim: props.entry?.data_fim ?? '',
     fluxo: props.entry?.fluxo ?? '',
     sintomas: props.entry?.sintomas ?? [],
+    sintomas_outros: props.entry?.sintomas_outros ?? '',
     notas: props.entry?.notas ?? '',
 });
 
@@ -90,6 +91,18 @@ const submit = () => {
                         />
                         {{ label }}
                     </label>
+                </div>
+                <div v-if="form.sintomas.includes('outros')" class="mt-2">
+                    <InputLabel for="sintomas_outros" value="Qual sintoma?" />
+                    <TextInput
+                        id="sintomas_outros"
+                        type="text"
+                        class="mt-1"
+                        maxlength="255"
+                        v-model="form.sintomas_outros"
+                        required
+                    />
+                    <InputError class="mt-2" :message="form.errors.sintomas_outros" />
                 </div>
                 <InputError class="mt-2" :message="form.errors.sintomas" />
             </fieldset>

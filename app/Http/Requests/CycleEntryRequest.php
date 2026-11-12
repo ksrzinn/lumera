@@ -20,7 +20,42 @@ class CycleEntryRequest extends FormRequest
             'fluxo' => ['nullable', Rule::in(array_keys(CycleEntry::FLOW_OPTIONS))],
             'sintomas' => ['nullable', 'array'],
             'sintomas.*' => [Rule::in(array_keys(CycleEntry::SYMPTOM_OPTIONS))],
+            'sintomas_outros' => [
+                Rule::requiredIf(fn () => $this->hasOtherSymptom()),
+                'nullable',
+                'string',
+                'max:255',
+            ],
             'notas' => ['nullable', 'string', 'max:1000'],
         ];
+    }
+
+    /**
+     * @return array<string, string>
+     */
+    public function messages(): array
+    {
+        return [
+            'sintomas_outros.required' => 'Descreva o sintoma.',
+        ];
+    }
+
+    /**
+     * Descarta o texto de "Outros" quando a opção não está marcada.
+     */
+    public function validated($key = null, $default = null): mixed
+    {
+        $data = parent::validated();
+
+        if (! $this->hasOtherSymptom()) {
+            $data['sintomas_outros'] = null;
+        }
+
+        return data_get($data, $key, $default);
+    }
+
+    private function hasOtherSymptom(): bool
+    {
+        return in_array('outros', (array) $this->input('sintomas', []), true);
     }
 }
